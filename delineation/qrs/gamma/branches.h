@@ -6,13 +6,6 @@
 #include "default.h"
 
 
-// DUMMY_CONST
-static const double GAMMA_MM_SMALL_PART_LEFT = 0.04;
-// DUMMY_CONST
-static const double GAMMA_MM_SMALL_PART_RIGHT = 0.065;
-
-
-
 std::vector<Point> borders_processing(const ECGLead& ecg_lead, const WaveDelineation& delineation,
     const QRSMorphologyData& qrs_morphology_data, int q_zc_id_diff, const std::vector<Point>& left_points,
     int s_zc_id_diff, const std::vector<Point>& right_points, std::vector<int>* branch_id)

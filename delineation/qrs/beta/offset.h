@@ -4,13 +4,6 @@
 #include "../delineation.h"
 
 
-// DUMMY_CONST
-static const double BETA_OFFSET_WINDOW = 0.15;
-// DUMMY_CONST
-static const double BETA_OFFSET_MM_LOW_LIM = 0.075;
-// DUMMY_CONST
-static const double BETA_OFFSET_THRESHOLD = 0.05;
-
 std::vector<ModulusMaxima> get_qrs_offset_mms(const ECGLead& ecg_lead, const ZeroCrossing& qrs_zc);
 int get_qrs_offset_mm_id(const ECGLead& ecg_lead, const ZeroCrossing& qrs_zc,
     const std::vector<ModulusMaxima>& mms, int offset_mm_id);

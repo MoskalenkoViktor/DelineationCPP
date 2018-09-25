@@ -36,6 +36,7 @@ int main()
     for (size_t i = 0; i < 1; ++i)
     {
         lead.wdc = wdc;
+        lead.filter = wdc[0];
         lead.calc_mms();
         lead.calc_zcs();
         lead.qrs_del();

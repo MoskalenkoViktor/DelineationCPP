@@ -4,7 +4,9 @@
 
 std::vector<int> origin_scale_analysis(const ECGLead& ecg_lead, const QRSMorphologyData& morph_data)
 {
-    // DUMMY_CONST
+    // 
+
+
     const size_t WDC_SCALE_ID = 3;
 
     // Init data for original wdc scale

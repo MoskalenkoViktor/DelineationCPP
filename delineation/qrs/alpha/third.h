@@ -5,7 +5,12 @@
 std::vector<int> get_additional_qrs_zcs_ids(const ECGLead& ecg_lead, const std::vector<ZeroCrossing>& zcs,
     std::vector<int> zcs_ids, const std::vector<double>& wdc, const std::vector<double>& wdc_aux)
 {
-    // DUMMY_CONST
+    // 
+
+
+
+
+
     const double ALPHA_SKIP = 3.0;
 
     std::vector<int> zcs_diffs;

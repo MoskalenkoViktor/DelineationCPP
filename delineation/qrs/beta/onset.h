@@ -4,6 +4,7 @@
 #include "../delineation.h"
 #include "../../../threshold_crossings/routines.h"
 #include "../../../modulus_maxima/modulus_maxima.h"
+#include "../../../params/params.h"
 
 /*
 Алгорим поиска начала QRS.
@@ -17,30 +18,6 @@
     mms - список экстремумов детализирующих вейвлет-коэффициентов.
     onset_mm_id - индекс экстремума, с которого начинается поиск начала QRS.
 */
-
-
-// DUMMY_CONST
-static const double BETA_ONSET_WINDOW = 0.15;
-// DUMMY_CONST
-static const double BETA_ONSET_MM_LOW_LIM = 0.055;
-// DUMMY_CONST
-static const double BETA_ONSET_AMPL_DECR_POW = 4.0;
-// DUMMY_CONST
-static const double BETA_ONSET_AMPL_DECR_VAL = 0.3;
-// DUMMY_CONST
-static const double BETA_COMPLEX_ZC_AMPL = 0.3;
-// DUMMY_CONST
-static const double BETA_COMPLEX_MM_VAL = 0.6;
-// DUMMY_CONST
-static const double BETA_ONSET_THRESHOLD = 0.25;
-// DUMMY_CONST
-static const double BETA_ONSET_MM_HIGH_LIM = 0.5;
-// DUMMY_CONST
-static const double BETA_ONSET_MM_WINDOW = 0.06;
-// DUMMY_CONST
-static const double BETA_ONSET_COMPROMISE_WINDOW = 0.055;
-// DUMMY_CONST
-double BETA_ONSET_COMPROMISE_MM_LIM = 0.5;
 
 
 std::vector<ModulusMaxima> get_qrs_onset_mms(const ECGLead& ecg_lead, const ZeroCrossing& qrs_zc);

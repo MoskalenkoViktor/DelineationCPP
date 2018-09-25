@@ -1,16 +1,7 @@
 #include "data.h"
 #include "../delineation.h"
 #include "../../../zero_crossing/zero_crossing.h"
-
-
-// DUMMY_CONST
-static const double GAMMA_NORMAL_LENGTH = 0.155;
-// DUMMY_CONST
-static const double GAMMA_ALLOWED_DIFF_PART_LEFT = 0.3;
-// DUMMY_CONST
-static const double GAMMA_ALLOWED_DIFF_PART_RIGHT = 0.7;
-// DUMMY_CONST
-static const double GAMMA_R_NEG_PART = 0.75;
+#include "../../../params/params.h"
 
 
 QRSMorphologyData::QRSMorphologyData(const ECGLead& ecg_lead, 

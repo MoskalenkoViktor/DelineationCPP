@@ -5,20 +5,6 @@
 #include <tuple>
 
 
-// DUMMY_CONST
-static const size_t WDC_SCALE_ID = 3;
-// DUMMY_CONST
-static const double GAMMA_SCALES_DIFF = 3.0;
-// DUMMY_CONST
-static const size_t GAMMA_LEFT_Q_PART = 0.7;
-// DUMMY_CONST
-static const double GAMMA_LEFT_ODD_XTD_ZCS_SHIFT = 0.03;
-// DUMMY_CONST
-static const double GAMMA_LEFT_EVEN_XTD_ZCS_SHIFT = 0.015;
-// DUMMY_CONST
-static const double GAMMA_LEFT_XTD_ZCS_MM_PART = 0.2;
-
-
 std::tuple<bool, int, std::vector<Point>> left_qrs_morphology(const ECGLead& ecg_lead,
     const WaveDelineation& delineation, const QRSMorphologyData& morph_data)
 {
