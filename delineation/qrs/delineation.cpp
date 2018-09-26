@@ -2,19 +2,61 @@
 #include "../../ecg_lead/ecg_lead.h"
 #include "alpha/alpha.h"
 #include "beta/beta.h"
+#include "gamma/gamma.h"
 
 
-std::vector<WaveDelineation> get_qrs_dels(const ECGLead& ecg_lead, size_t begin_index, size_t end_index)
+std::pair<std::vector<WaveDelineation>, std::vector<Morphology>> get_qrs_dels(
+    const ECGLead& ecg_lead, size_t begin_index, size_t end_index)
 {
     auto qrs_zcs = alpha_processing(ecg_lead, begin_index, end_index);
 
     std::vector<WaveDelineation> delineations;
+    std::vector<Morphology> morphologies;
+    int num_dels = 0;
     for (const ZeroCrossing& qrs_zc : qrs_zcs)
     {
-        delineations.push_back(beta_processing(ecg_lead, qrs_zc));
+        WaveDelineation delineation = beta_processing(ecg_lead, qrs_zc);
+        Morphology morphology = get_qrs_morphology(ecg_lead, num_dels, &delineation);
+        delineations.push_back(delineation);
+        morphologies.push_back(morphology);
+        ++num_dels;
     }
 
-    return delineations;
+    if (delineations.size() > 1)
+    {
+        for (int del_id = 1; del_id < delineations.size(); ++del_id)
+        {
+            if (delineations[del_id].onset_index <= delineations[del_id - 1].offset_index)
+            {
+                delineations[del_id].onset_index = delineations[del_id - 1].offset_index + 1;
+                morphologies[del_id].points[0].index = delineations[del_id - 1].offset_index + 1;
+                morphologies[del_id].points[0].value = ecg_lead.filter[delineations[del_id - 1].offset_index + 1];
+            }
+        }
+    }
+
+    double mean_rr = 0.0;
+    for (int qrs_delineation_id = 0; qrs_delineation_id < delineations.size() - 1; ++qrs_delineation_id)
+    {
+        mean_rr += (delineations[qrs_delineation_id + 1].peak_index - delineations[qrs_delineation_id].peak_index);
+    }
+
+    if (delineations.size() > 1)
+    {
+        mean_rr /= delineations.size() - 1;
+    }
+
+    for (int qrs_delineation_id = 1; qrs_delineation_id < delineations.size() - 1; ++qrs_delineation_id)
+    {
+        double rr = static_cast<double>(
+            (delineations[qrs_delineation_id].peak_index - delineations[qrs_delineation_id - 1].peak_index));
+        if (rr < EXTRA_BEAT_PART * mean_rr)
+        {
+            delineations[qrs_delineation_id].specification = WaveSpecification::EXTRA;
+        }
+    }
+
+    return{ delineations, morphologies };
 }
 
 

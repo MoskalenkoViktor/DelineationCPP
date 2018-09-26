@@ -50,7 +50,8 @@ std::tuple<bool, int, std::vector<Point>> right_qrs_morphology(const ECGLead& ec
         // Init right border
         size_t r_ind_1 = std::min(zcs_all_origin[right_zc_origin.id + 1].index, morph_data.end_index);
         const std::vector<ModulusMaxima> mms_origin =
-            get_lr_mms_in(ecg_lead, scale_id_origin, left_index, offset_index_beta);
+            get_lr_mms_in(ecg_lead, scale_id_origin, 
+                static_cast<int>(left_index), static_cast<int>(offset_index_beta));
         const std::vector<int> incorrect_mms_ids_origin = get_incorrect_mms_ids(mms_origin);
         double incorrect_mm_limit = zcs_origin[peak_zc_id_origin].g_ampl * GAMMA_RIGHT_ORIGIN_INCORRECT;
         size_t r_ind_2 = r_ind_1;
@@ -66,7 +67,8 @@ std::tuple<bool, int, std::vector<Point>> right_qrs_morphology(const ECGLead& ec
         right_index = std::min(right_index, offset_index_beta);
 
         // Form mms array in searching interval
-        const std::vector<ModulusMaxima> mms = get_lr_mms_in(ecg_lead, scale_id, left_index, right_index);
+        const std::vector<ModulusMaxima> mms = get_lr_mms_in(ecg_lead, scale_id, 
+            static_cast<int>(left_index), static_cast<int>(right_index));
 
         // Define list, which contains correct mms ids
         const std::vector<int> correct_mms_ids = get_correct_mms_ids(mms);
@@ -274,14 +276,14 @@ std::tuple<bool, int, std::vector<Point>> right_qrs_morphology(const ECGLead& ec
         {
             size_t p_index = zcs[xtd_point_zc_id].index;
             double p_value = ecg_lead.filter[p_index];
-            ExtremumSign p_sign;
+            WaveSign p_sign;
             if (zcs[xtd_point_zc_id].extremum_sign == ExtremumSign::NEGATIVE)
             {
-                p_sign = ExtremumSign::NEGATIVE;
+                p_sign = WaveSign::NEGATIVE;
             }
             else
             {
-                p_sign = ExtremumSign::POSITIVE;
+                p_sign = WaveSign::POSITIVE;
             }
             points.emplace_back(PointName::XTD_POINT, p_index, p_value, p_sign);
         }

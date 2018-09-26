@@ -42,3 +42,11 @@ public:
     double value;
     WaveSign sign;
 };
+
+
+enum class Degree
+{
+    SATISFYINGLY = 0,
+    DOUBTFULLY = 1,
+    UNKNOWN = 2
+};

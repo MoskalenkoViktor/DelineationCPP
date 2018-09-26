@@ -8,13 +8,27 @@
 
 int main()
 {
-    std::ifstream in("wdc.txt");
+    std::ifstream in("input_2321.txt");
+
+    size_t size_filter;
+    size_t size_wdc;
+    in >> size_filter;
+    in >> size_wdc;
+
+    std::vector<double> filter;
     std::vector<std::vector<double>> wdc;
+
     double value;
+    for (size_t i = 0; i < size_filter; ++i)
+    {
+        in >> value;
+        filter.push_back(value);
+    }
+
     for (size_t i = 0; i < 5; ++i)
     {
         wdc.emplace_back();
-        for (size_t j = 0; j < 5120; ++j)
+        for (size_t j = 0; j < size_wdc; ++j)
         {
             in >> value;
             wdc.back().push_back(value);
@@ -39,7 +53,7 @@ int main()
         lead.filter = wdc[0];
         lead.calc_mms();
         lead.calc_zcs();
-        lead.qrs_del();
+        //lead.qrs_del();
     }
     clock_t end = clock();
     double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;

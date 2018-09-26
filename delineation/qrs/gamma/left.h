@@ -48,11 +48,13 @@ std::tuple<bool, int, std::vector<Point>> left_qrs_morphology(const ECGLead& ecg
         size_t right_index = left_zc_origin.index;
 
         // Init left border
-        size_t left_index = find_left_thc_index(wdc_origin, right_index - 1, morph_data.begin_index, 0.0);
+        size_t left_index = find_left_thc_index(wdc_origin, right_index - 1, 
+            static_cast<int>(morph_data.begin_index), 0.0);
         left_index = std::max(left_index, onset_index_beta);
 
         // Form mms array in searching interval
-        const std::vector<ModulusMaxima> mms = get_rl_mms_in(ecg_lead, scale_id, right_index, left_index);
+        const std::vector<ModulusMaxima> mms = get_rl_mms_in(ecg_lead, scale_id, 
+            static_cast<int>(right_index), static_cast<int>(left_index));
 
         // Define list, which contains correct mms ids
         const std::vector<int> correct_mms_ids = get_correct_mms_ids(mms);
@@ -266,14 +268,14 @@ std::tuple<bool, int, std::vector<Point>> left_qrs_morphology(const ECGLead& ecg
         {
             size_t p_index = zcs[xtd_point_zc_id].index;
             double p_value = ecg_lead.filter[p_index];
-            ExtremumSign p_sign;
+            WaveSign p_sign;
             if (zcs[xtd_point_zc_id].extremum_sign == ExtremumSign::NEGATIVE)
             {
-                p_sign = ExtremumSign::NEGATIVE;
+                p_sign = WaveSign::NEGATIVE;
             }
             else
             {
-                p_sign = ExtremumSign::POSITIVE;
+                p_sign = WaveSign::POSITIVE;
             }
             points.emplace_back(PointName::XTD_POINT, p_index, p_value, p_sign);
         }

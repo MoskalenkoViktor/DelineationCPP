@@ -22,7 +22,7 @@ std::vector<int> origin_scale_analysis(const ECGLead& ecg_lead, const QRSMorphol
 
     // Defining zcs, which correspond to begin and end:
     // Leave only one first zc on each side
-    if (del_begin_zc_id_origin <= peak_zc_id_origin < del_end_zc_id_origin)
+    if ((del_begin_zc_id_origin <= peak_zc_id_origin) && (peak_zc_id_origin < del_end_zc_id_origin))
     {
 
         int begin_zc_id = peak_zc_id_origin;

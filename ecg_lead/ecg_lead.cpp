@@ -6,6 +6,8 @@
 #include "../zero_crossing/zero_crossing.h"
 #include "../delineation/qrs/delineation.h"
 #include "../delineation/wave_delineation.h"
+#include <tuple>
+#include "../params/params.h"
 
 
 ECGLead::ECGLead(const std::string& lead_name, const std::vector<double>& data, double sample_rate) :
@@ -80,8 +82,33 @@ void ECGLead::calc_zcs()
 
 void ECGLead::qrs_del()
 {
-    std::vector<WaveDelineation> cur_qrs_dels = get_qrs_dels(*this, 0, wdc[0].size());
-    qrs_dels = std::vector<WaveDelineation>(cur_qrs_dels.begin(), cur_qrs_dels.end());
+    std::vector<WaveDelineation> cur_qrs_dels;
+    std::vector<Morphology> cur_qrs_morph;
+    std::tie(cur_qrs_dels, cur_qrs_morph) = get_qrs_dels(*this, 0, wdc[0].size());
+
+    qrs_dels = cur_qrs_dels;
+    qrs_morphs = cur_qrs_morph;
+
+    if (cur_qrs_morph.size() > 0)
+    {
+        size_t next_start = cur_qrs_dels.back().offset_index;
+        while (next_start < static_cast<size_t>(wdc[0].size() * ALPHA_HUGE_PART))
+        {
+            std::tie(cur_qrs_dels, cur_qrs_morph) = get_qrs_dels(*this, next_start, wdc[0].size());
+            if (cur_qrs_dels.size() > 0)
+            {
+                qrs_dels.insert(qrs_dels.end(), cur_qrs_dels.begin(), cur_qrs_dels.end());
+                qrs_morphs.insert(qrs_morphs.end(), cur_qrs_morph.begin(), cur_qrs_morph.end());
+
+                next_start = cur_qrs_dels.back().offset_index;
+            }
+            else
+            {
+                next_start += static_cast<size_t>((wdc[0].size() - next_start) * ALPHA_INC);
+            }
+            
+        }
+    }
 }
 
 void ECGLead::t_del()

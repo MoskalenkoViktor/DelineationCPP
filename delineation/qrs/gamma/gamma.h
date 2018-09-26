@@ -5,7 +5,7 @@
 #include "branches.h"
 
 
-void get_qrs_morphology(const ECGLead& ecg_lead, int del_id,
+Morphology get_qrs_morphology(const ECGLead& ecg_lead, int del_id,
     WaveDelineation* delineation)
 {
     int scale_id = 0;
@@ -30,13 +30,55 @@ void get_qrs_morphology(const ECGLead& ecg_lead, int del_id,
     int s_zc_id_diff = is_right_complex ? last_zc_id - r_zc_id : 1;
 
     std::vector<int> branch_id;
+    std::vector<Point> points;
 
     if (is_left_complex && is_right_complex)
     {
         branch_id.push_back(1);
-        borders_processing(ecg_lead, delineation, qrs_morphology_data,
+        points = borders_processing(ecg_lead, delineation, qrs_morphology_data,
             q_zc_id_diff, left_points,
             s_zc_id_diff, right_points,
             &branch_id);
     }
+    else if (is_left_complex && !is_right_complex)
+    {
+        branch_id.push_back(2);
+        points = borders_processing(ecg_lead, delineation, qrs_morphology_data,
+            q_zc_id_diff, left_points,
+            s_zc_id_diff, right_points,
+            &branch_id);
+    }
+    else if (!is_left_complex && is_right_complex)
+    {
+        branch_id.push_back(3);
+        points = borders_processing(ecg_lead, delineation, qrs_morphology_data,
+            q_zc_id_diff, left_points,
+            s_zc_id_diff, right_points,
+            &branch_id);
+    }
+    else
+    {
+        branch_id.push_back(0);
+        points = borders_processing(ecg_lead, delineation, qrs_morphology_data,
+            q_zc_id_diff, left_points,
+            s_zc_id_diff, right_points,
+            &branch_id);
+    }
+
+    size_t num_xtd_points = std::count_if(points.begin(), points.end(), [](const Point& point) 
+    {
+        return point.name == PointName::XTD_POINT;
+    });
+
+    Degree degree = Degree::UNKNOWN;
+    if (num_xtd_points == 0)
+    {
+        degree = Degree::SATISFYINGLY;
+    }
+    else if ((0 < num_xtd_points) && (num_xtd_points <= 2))
+    {
+        degree = Degree::DOUBTFULLY;
+    }
+
+    return{ del_id, points, degree, branch_id };
 }

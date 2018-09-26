@@ -39,6 +39,7 @@ public:
     std::vector<std::vector<int>> ids_mms;
 
     std::vector<WaveDelineation> qrs_dels;
+    std::vector<Morphology> qrs_morphs;
 
 private:
     std::vector<double> signal_;
