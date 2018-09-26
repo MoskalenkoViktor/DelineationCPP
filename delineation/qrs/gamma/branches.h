@@ -4,9 +4,10 @@
 #include "../../morfology_point.h"
 #include "orders.h"
 #include "default.h"
+#include "../../../params/params.h"
 
 
-std::vector<Point> borders_processing(const ECGLead& ecg_lead, const WaveDelineation& delineation,
+std::vector<Point> borders_processing(const ECGLead& ecg_lead, WaveDelineation* delineation,
     const QRSMorphologyData& qrs_morphology_data, int q_zc_id_diff, const std::vector<Point>& left_points,
     int s_zc_id_diff, const std::vector<Point>& right_points, std::vector<int>* branch_id)
 {
@@ -640,7 +641,19 @@ bool is_q_r_s_extra_zcs_in_del(const ECGLead& ecg_lead,
     int real_q_zc_id_index = real_r_zc_id_index - 1;
     int real_s_zc_id_index = real_r_zc_id_index + 1;
 
-    return true;
+    double mm_small_right = zcs[peak_zc_id].g_ampl * GAMMA_MM_SMALL_PART_RIGHT;
+
+    if ((real_dels_zcs_ids.size() > 3) && (real_r_zc_id_index == 1) &&
+        (zcs[q_zc_id].extremum_sign == q_sign) && (zcs[r_zc_id].extremum_sign == r_sign) &&
+        (zcs[s_zc_id].extremum_sign == s_sign))
+    {
+        if (s_zc_id + 1 < dels_zcs_ids[0] + dels_zcs_ids.size())
+        {
+            auto mm_right = all_mms[zcs[s_zc_id + 1].r_mms[0].id];
+            return std::abs(mm_right.value) < mm_small_right;
+        }
+    }
+    return false;
 }
 
 
@@ -680,7 +693,19 @@ bool is_q_r_s_t_zcs_in_del(const ECGLead& ecg_lead,
     int real_q_zc_id_index = real_r_zc_id_index - 1;
     int real_s_zc_id_index = real_r_zc_id_index + 1;
 
-    return true;
+    double mm_small_right = zcs[peak_zc_id].g_ampl * GAMMA_MM_SMALL_PART_RIGHT;
+
+    if ((real_dels_zcs_ids.size() > 3) && (real_r_zc_id_index == 1) &&
+        (zcs[q_zc_id].extremum_sign == q_sign) && (zcs[r_zc_id].extremum_sign == r_sign) &&
+        (zcs[s_zc_id].extremum_sign == s_sign))
+    {
+        if (s_zc_id + 1 < dels_zcs_ids[0] + dels_zcs_ids.size())
+        {
+            auto mm_right = all_mms[zcs[s_zc_id + 1].r_mms[0].id];
+            return std::abs(mm_right.value) > mm_small_right;
+        }
+    }
+    return false;
 }
 
 
@@ -720,7 +745,21 @@ bool is_extra_zcs_q_r_s_extra_zcs_in_del(const ECGLead& ecg_lead,
     int real_q_zc_id_index = real_r_zc_id_index - 1;
     int real_s_zc_id_index = real_r_zc_id_index + 1;
 
-    return true;
+    double mm_small_left = zcs[peak_zc_id].g_ampl * GAMMA_MM_SMALL_PART_LEFT;
+    double mm_small_right = zcs[peak_zc_id].g_ampl * GAMMA_MM_SMALL_PART_RIGHT;
+
+    if ((real_dels_zcs_ids.size() > 4) && (2 <= real_r_zc_id_index) && 
+        (real_r_zc_id_index < real_dels_zcs_ids.size() - 2) && (zcs[q_zc_id].extremum_sign == q_sign) && 
+        (zcs[r_zc_id].extremum_sign == r_sign) && (zcs[s_zc_id].extremum_sign == s_sign))
+    {
+        if ((q_zc_id - 1 >= dels_zcs_ids[0]) && (s_zc_id + 1 < dels_zcs_ids[0] + dels_zcs_ids.size()))
+        {
+            auto mm_left = all_mms[zcs[q_zc_id - 1].l_mms[0].id];
+            auto mm_right = all_mms[zcs[s_zc_id + 1].r_mms[0].id];
+            return (std::abs(mm_left.value) < mm_small_left) && (std::abs(mm_right.value) < mm_small_right);
+        }
+    }
+    return false;
 }
 
 
@@ -760,7 +799,21 @@ bool is_p_zcs_q_r_s_extra_zcs_in_del(const ECGLead& ecg_lead,
     int real_q_zc_id_index = real_r_zc_id_index - 1;
     int real_s_zc_id_index = real_r_zc_id_index + 1;
 
-    return true;
+    double mm_small_left = zcs[peak_zc_id].g_ampl * GAMMA_MM_SMALL_PART_LEFT;
+    double mm_small_right = zcs[peak_zc_id].g_ampl * GAMMA_MM_SMALL_PART_RIGHT;
+
+    if ((real_dels_zcs_ids.size() > 4) && (2 <= real_r_zc_id_index) &&
+        (real_r_zc_id_index < real_dels_zcs_ids.size() - 2) && (zcs[q_zc_id].extremum_sign == q_sign) &&
+        (zcs[r_zc_id].extremum_sign == r_sign) && (zcs[s_zc_id].extremum_sign == s_sign))
+    {
+        if ((q_zc_id - 1 >= dels_zcs_ids[0]) && (s_zc_id + 1 < dels_zcs_ids[0] + dels_zcs_ids.size()))
+        {
+            auto mm_left = all_mms[zcs[q_zc_id - 1].l_mms[0].id];
+            auto mm_right = all_mms[zcs[s_zc_id + 1].r_mms[0].id];
+            return (std::abs(mm_left.value) > mm_small_left) && (std::abs(mm_right.value) < mm_small_right);
+        }
+    }
+    return false;
 }
 
 
@@ -801,7 +854,21 @@ bool is_extra_zcs_q_r_s_t_zcs_in_del(const ECGLead& ecg_lead,
     int real_q_zc_id_index = real_r_zc_id_index - 1;
     int real_s_zc_id_index = real_r_zc_id_index + 1;
 
-    return true;
+    double mm_small_left = zcs[peak_zc_id].g_ampl * GAMMA_MM_SMALL_PART_LEFT;
+    double mm_small_right = zcs[peak_zc_id].g_ampl * GAMMA_MM_SMALL_PART_RIGHT;
+
+    if ((real_dels_zcs_ids.size() > 4) && (2 <= real_r_zc_id_index) &&
+        (real_r_zc_id_index < real_dels_zcs_ids.size() - 2) && (zcs[q_zc_id].extremum_sign == q_sign) &&
+        (zcs[r_zc_id].extremum_sign == r_sign) && (zcs[s_zc_id].extremum_sign == s_sign))
+    {
+        if ((q_zc_id - 1 >= dels_zcs_ids[0]) && (s_zc_id + 1 < dels_zcs_ids[0] + dels_zcs_ids.size()))
+        {
+            auto mm_left = all_mms[zcs[q_zc_id - 1].l_mms[0].id];
+            auto mm_right = all_mms[zcs[s_zc_id + 1].r_mms[0].id];
+            return (std::abs(mm_left.value) < mm_small_left) && (std::abs(mm_right.value) > mm_small_right);
+        }
+    }
+    return false;
 }
 
 
@@ -841,5 +908,19 @@ bool is_p_zcs_q_r_s_t_zcs_in_del(const ECGLead& ecg_lead,
     int real_q_zc_id_index = real_r_zc_id_index - 1;
     int real_s_zc_id_index = real_r_zc_id_index + 1;
 
-    return true;
+    double mm_small_left = zcs[peak_zc_id].g_ampl * GAMMA_MM_SMALL_PART_LEFT;
+    double mm_small_right = zcs[peak_zc_id].g_ampl * GAMMA_MM_SMALL_PART_RIGHT;
+
+    if ((real_dels_zcs_ids.size() > 4) && (2 <= real_r_zc_id_index) &&
+        (real_r_zc_id_index < real_dels_zcs_ids.size() - 2) && (zcs[q_zc_id].extremum_sign == q_sign) &&
+        (zcs[r_zc_id].extremum_sign == r_sign) && (zcs[s_zc_id].extremum_sign == s_sign))
+    {
+        if ((q_zc_id - 1 >= dels_zcs_ids[0]) && (s_zc_id + 1 < dels_zcs_ids[0] + dels_zcs_ids.size()))
+        {
+            auto mm_left = all_mms[zcs[q_zc_id - 1].l_mms[0].id];
+            auto mm_right = all_mms[zcs[s_zc_id + 1].r_mms[0].id];
+            return (std::abs(mm_left.value) > mm_small_left) && (std::abs(mm_right.value) > mm_small_right);
+        }
+    }
+    return false;
 }

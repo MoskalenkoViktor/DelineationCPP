@@ -70,3 +70,12 @@ static const double GAMMA_RIGHT_ODD_XTD_ZCS_SHIFT = 0.04;
 static const double GAMMA_RIGHT_EVEN_XTD_ZCS_SHIFT = 0.02;
 // DUMMY_CONST
 static const double GAMMA_RIGHT_XTD_ZCS_MM_PART = 0.12;
+
+// DUMMY_CONST
+static const double GAMMA_LEFT_WINDOW = 0.03;
+// DUMMY_CONST
+static const size_t GAMMA_BORD_SCALE = 2;
+
+
+// DUMMY_CONST
+static const double GAMMA_RIGHT_WINDOW = 0.03;

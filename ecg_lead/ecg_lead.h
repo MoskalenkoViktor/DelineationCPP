@@ -34,7 +34,9 @@ public:
 
     std::vector<std::vector<ZeroCrossing>> zcs;
     std::vector<std::vector<int>> ids_zcs;
+
     std::vector<std::vector<ModulusMaxima>> mms;
+    std::vector<std::vector<int>> ids_mms;
 
     std::vector<WaveDelineation> qrs_dels;
 

@@ -35,7 +35,7 @@ void ECGLead::dwt()
 void ECGLead::calc_mms()
 {
     mms.clear();
-    std::vector<std::vector<int>> ids_mms;
+    ids_mms.clear();
     for (size_t id = 0; id < wdc.size(); ++id)
     {
         mms.push_back(get_mms(wdc[id]));

@@ -1,7 +1,7 @@
 #pragma once
 #include "beta_legacy.h"
-#include "routines.h"
-#include "morfology_point.h"
+#include "../../../threshold_crossings/routines.h"
+#include "../../morfology_point.h"
 #include <tuple>
 
 
