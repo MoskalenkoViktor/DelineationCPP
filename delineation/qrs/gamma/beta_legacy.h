@@ -4,13 +4,11 @@
 
 std::vector<int> origin_scale_analysis(const ECGLead& ecg_lead, const QRSMorphologyData& morph_data)
 {
-    // 
-
-
+    // DUMMY_CONST
     const size_t WDC_SCALE_ID = 3;
 
     // Init data for original wdc scale
-    int scale_id_origin = morph_data.scale_id;
+    int scale_id_origin = WDC_SCALE_ID;
     const std::vector<double>& wdc_origin = morph_data.wdc[scale_id_origin];
     const std::vector<ZeroCrossing>& zcs_origin = morph_data.zcs[scale_id_origin];
     int peak_zc_id_origin = morph_data.peak_zcs_ids[scale_id_origin];

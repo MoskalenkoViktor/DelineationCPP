@@ -99,7 +99,8 @@ std::tuple<bool, int, std::vector<Point>> left_qrs_morphology(const ECGLead& ecg
             {
                 q_zc_id = xtd_zcs_ids[0];
                 double q_zc_ampl = zcs[q_zc_id].g_ampl;
-                for (int zc_id = xtd_zcs_ids[0]; zc_id >= xtd_zcs_ids[0] - xtd_zcs_ids.size(); zc_id -= 2)
+                for (int zc_id = xtd_zcs_ids[0]; zc_id > xtd_zcs_ids[0] - 
+                    static_cast<int>(xtd_zcs_ids.size()); zc_id -= 2)
                 {
                     if (zcs[zc_id].g_ampl > q_zc_ampl)
                     {
@@ -166,7 +167,8 @@ std::tuple<bool, int, std::vector<Point>> left_qrs_morphology(const ECGLead& ecg
             {
                 int max_zc_id = xtd_zcs_ids[0];
                 double max_zc_ampl = zcs[max_zc_id].g_ampl;
-                for (int zc_id = xtd_zcs_ids[0]; zc_id >= xtd_zcs_ids[0] - xtd_zcs_ids.size(); zc_id -= 2)
+                for (int zc_id = xtd_zcs_ids[0]; 
+                    zc_id > xtd_zcs_ids[0] - static_cast<int>(xtd_zcs_ids.size()); zc_id -= 2)
                 {
                     if (zcs[zc_id].g_ampl > max_zc_ampl)
                     {
@@ -177,7 +179,8 @@ std::tuple<bool, int, std::vector<Point>> left_qrs_morphology(const ECGLead& ecg
 
                 q_zc_id = xtd_zcs_ids[0];
                 double q_zc_ampl = zcs[q_zc_id].g_ampl;
-                for (int zc_id = xtd_zcs_ids[0]; zc_id >= xtd_zcs_ids[0] - xtd_zcs_ids.size(); zc_id -= 2)
+                for (int zc_id = xtd_zcs_ids[0]; 
+                    zc_id > xtd_zcs_ids[0] - static_cast<int>(xtd_zcs_ids.size()); zc_id -= 2)
                 {
                     if (zcs[zc_id].g_ampl > max_zc_ampl * GAMMA_LEFT_Q_PART)
                     {

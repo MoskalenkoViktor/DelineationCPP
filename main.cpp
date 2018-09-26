@@ -45,15 +45,16 @@ int main()
     }*/
     
 
+    ECGLead lead("lead_i", {}, 500.0);
+    lead.wdc = wdc;
+    lead.filter = filter;
+
     clock_t begin = clock();
-    ECGLead lead("i", {}, 512.0);
-    for (size_t i = 0; i < 1; ++i)
+    for (size_t i = 0; i < 12; ++i)
     {
-        lead.wdc = wdc;
-        lead.filter = wdc[0];
         lead.calc_mms();
         lead.calc_zcs();
-        //lead.qrs_del();
+        lead.qrs_del();
     }
     clock_t end = clock();
     double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;

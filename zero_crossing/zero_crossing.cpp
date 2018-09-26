@@ -56,7 +56,7 @@ std::vector<ZeroCrossing> get_zcs(const std::vector<double>& wdc,
     std::vector<size_t> indexes;
     for (size_t i = 1; i < wdc.size(); ++i)
     {
-        if (wdc[i] * wdc[i - 1] <= 0)
+        if (wdc[i] * wdc[i - 1] < 0)
         {
             indexes.push_back(i);
         }
@@ -176,7 +176,7 @@ std::vector<ZeroCrossing> get_zcs_in_window(const std::vector<double>& wdc,
             }
             else
             {
-                ModulusMaxima last_mm(end_index_for_mm, right_zc.r_mms[-1].id, wdc);
+                ModulusMaxima last_mm(end_index_for_mm, right_zc.r_mms.back().id, wdc);
                 right_zc.r_mms = { last_mm };
                 right_zc.zc_proc();
             }

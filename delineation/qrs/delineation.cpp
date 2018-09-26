@@ -16,6 +16,10 @@ std::pair<std::vector<WaveDelineation>, std::vector<Morphology>> get_qrs_dels(
     for (const ZeroCrossing& qrs_zc : qrs_zcs)
     {
         WaveDelineation delineation = beta_processing(ecg_lead, qrs_zc);
+        if (qrs_zc.id == 90)
+        {
+            int a = 5;
+        }
         Morphology morphology = get_qrs_morphology(ecg_lead, num_dels, &delineation);
         delineations.push_back(delineation);
         morphologies.push_back(morphology);
