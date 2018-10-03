@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include "../modulus_maxima/modulus_maxima.h"
+#include <cmath>
 
 
 size_t find_left_thc_index(const std::vector<double>& wdc, size_t begin_searching_index,

@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <string>
 #include "../modulus_maxima/modulus_maxima.h"
 #include "../zero_crossing/zero_crossing.h"
 #include "../delineation/wave_delineation.h"

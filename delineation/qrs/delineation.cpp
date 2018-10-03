@@ -72,7 +72,8 @@ size_t get_qrs_wdc_scale_id(const ECGLead& ecg_lead)
 
     if (wdc_scale_id > num_wdc_scales - 1)
     {
-        throw std::exception("Wrong wdc scale id for qrs");
+        //throw std::exception("Wrong wdc scale id for qrs");
+        throw std::runtime_error("Wrong wdc scale id for qrs");
     }
 
     return wdc_scale_id;
@@ -87,7 +88,8 @@ size_t get_qrs_aux_wdc_scale_id(const ECGLead& ecg_lead)
 
     if (wdc_scale_id_aux > num_wdc_scales - 1)
     {
-        throw std::exception("Wrong wdc scale id aux for qrs");
+        //throw std::exception("Wrong wdc scale id aux for qrs");
+        throw std::runtime_error("Wrong wdc scale id aux for qrs");
     }
 
     return wdc_scale_id_aux;

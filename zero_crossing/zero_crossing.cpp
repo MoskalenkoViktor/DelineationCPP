@@ -1,5 +1,6 @@
 #include "zero_crossing.h"
 #include <algorithm>
+#include <cmath>
 
 
 ZeroCrossing::ZeroCrossing(size_t index, int id, 

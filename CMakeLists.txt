@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(DelineationCPP)
 set(_src_root_path "${DelineationCPP_SOURCE_DIR}")
+set(CMAKE_CXX_STANDARD 11)
 
 file(GLOB_RECURSE ALL_SOURCE LIST_DIRECTORIES false "*.h" "*.cpp")
 add_executable(DelineationCPP ${ALL_SOURCE})
