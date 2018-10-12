@@ -117,6 +117,15 @@ void ECGLead::t_del()
 
 void ECGLead::p_del()
 {
+    std::vector<WaveDelineation> cur_p_dels_seq;
+    std::vector<Morphology> cur_p_morph_seq;
+    std::tie(cur_p_dels_seq, cur_p_morph_seq) = get_p_dels(*this, 0, wdc[0].size());
+
+    p_dels = cur_p_dels_seq;
+    p_morphs = cur_p_morph_seq;
+
+    fib_analysis_imbalance();
+    fib_analysis_shortage();
 }
 
 void ECGLead::del_correction()
