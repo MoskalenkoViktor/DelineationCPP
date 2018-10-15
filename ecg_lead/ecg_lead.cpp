@@ -5,6 +5,7 @@
 #include "../discrete_wavelet_transform/wdc.h"
 #include "../zero_crossing/zero_crossing.h"
 #include "../delineation/qrs/delineation.h"
+#include "../delineation/p/delineation.h"
 #include "../delineation/wave_delineation.h"
 #include <tuple>
 #include "../params/params.h"
@@ -119,7 +120,7 @@ void ECGLead::p_del()
 {
     std::vector<WaveDelineation> cur_p_dels_seq;
     std::vector<Morphology> cur_p_morph_seq;
-    std::tie(cur_p_dels_seq, cur_p_morph_seq) = get_p_dels(*this, 0, wdc[0].size());
+    std::tie(cur_p_dels_seq, cur_p_morph_seq) = get_p_dels(*this);
 
     p_dels = cur_p_dels_seq;
     p_morphs = cur_p_morph_seq;
