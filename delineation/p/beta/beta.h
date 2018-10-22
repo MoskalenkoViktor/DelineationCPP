@@ -84,6 +84,6 @@ WaveDelineation get_p_del(const ECGLead& ecg_lead, const size_t qrs_id) {
 
     check_for_atrial_fibrillation(delineation, zcs);
 
-    
+
     return delineation;
 }
