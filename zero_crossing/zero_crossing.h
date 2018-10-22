@@ -51,5 +51,7 @@ std::vector<ZeroCrossing> get_zcs_in_window(const std::vector<double>& wdc,
     const std::vector<ZeroCrossing>& zcs, const std::vector<int>& ids_zcs, 
     size_t begin_index, size_t end_index);
 
+std::vector<ZeroCrossing> get_zcs_with_special_mms(const std::vector<double>& wdc, size_t begin_index, size_t end_index, int window);
+
 int get_closest_zc_id(const std::vector<ZeroCrossing>& zcs, 
     const std::vector<int>& ids_zcs, size_t index);

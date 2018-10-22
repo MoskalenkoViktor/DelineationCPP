@@ -10,12 +10,12 @@
 #include "offset.h"
 #include "legacy.h"
 #include "routines.h"
-#include "zcs.h"
+#include "../zcs.h"
 #include "../../wave_delineation.h"
 #include "../../../ecg_lead/ecg_lead.h"
 #include "../../../params/params.h"
 
-// What type of qrs_id?
+
 WaveDelineation get_p_del(const ECGLead& ecg_lead, const size_t qrs_id) {
     WaveDelineation delineation;
 
