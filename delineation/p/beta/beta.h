@@ -24,35 +24,35 @@ WaveDelineation get_p_del(const ECGLead& ecg_lead, const size_t qrs_id) {
     }
 
     double rate = ecg_lead.rate;
-    double mm_window = int(float(ALPHA_MM_WINDOW) * rate);
+    auto mm_window = int(float(ALPHA_MM_WINDOW) * rate);
 
-    zcs = get_p_zcs(ecg_lead, qrs_id, mm_window);
+    std::vector<ZeroCrossing> zcs = get_p_zcs(ecg_lead, qrs_id, mm_window);
+
+    if (zcs.empty()) {
+        return delineation;
+    }
+
+    if (((zcs[-1].r_mms.index - zcs[-1].index) > int(float(ALPHA_RIGHT_MM_DIST) * rate)) ||
+        (abs(zcs[-1].r_mms.value) / abs(zcs[-1].l_mms.value) > float(ALPHA_OFFSET_MM_SHARP))) {
+        zcs.pop_back();
+    }
+
+    if (zcs.empty()) {
+        return delineation;
+    }
+
+    if (((zcs[0].index - zcs[0].l_mms.index) > int(float(ALPHA_LEFT_MM_DIST) * rate)) || (
+            abs(zcs[0].l_mms.value) / abs(zcs[0].r_mms.value) > float(ALPHA_ONSET_MM_SHARP))) {
+        zcs.pop_back();
+    }
 
     if (!zcs) {
         return delineation;
     }
 
-    if (((zcs[-1].right_mm.index - zcs[-1].index) > int(float(ALPHA_RIGHT_MM_DIST) * rate)) ||
-        (abs(zcs[-1].right_mm.value) / abs(zcs[-1].left_mm.value) > float(ALPHA_OFFSET_MM_SHARP))) {
-        zcs.pop(-1);
-    }
-
-    if (!zcs) {
-        return delineation;
-    }
-
-    if (((zcs[0].index - zcs[0].left_mm.index) > int(float(ALPHA_LEFT_MM_DIST) * rate)) || (
-            abs(zcs[0].left_mm.value) / abs(zcs[0].right_mm.value) > float(ALPHA_ONSET_MM_SHARP))) {
-        zcs.pop(0);
-    }
-
-    if (!zcs) {
-        return delineation;
-    }
-
-    window = get_window(ecg_lead, qrs_id);
-    begin_index = get_p_begin_index(ecg_lead, qrs_id);
-    end_index = get_p_end_index(ecg_lead, qrs_id);
+    int window = get_window(ecg_lead, qrs_id);
+    size_t begin_index = get_p_begin_index(ecg_lead, qrs_id);
+    size_t end_index = get_p_end_index(ecg_lead, qrs_id);
 
     if (window < int(float(ALPHA_PEAK_BEGIN_SHIFT) * rate)) {
         return delineation;
