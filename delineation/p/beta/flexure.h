@@ -1,0 +1,8 @@
+//
+// Created by Blintsov Sergey on 22/10/2018.
+//
+
+#ifndef DELINEATIONCPP_FLEXURE_H
+#define DELINEATIONCPP_FLEXURE_H
+
+#endif //DELINEATIONCPP_FLEXURE_H
