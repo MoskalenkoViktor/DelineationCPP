@@ -62,18 +62,18 @@ WaveDelineation get_p_del(const ECGLead& ecg_lead, const size_t qrs_id) {
         return delineation;
     }
 
-    peak_zc_id = get_p_peak_zc_id(ecg_lead, qrs_id, zcs);
+    auto peak_zc_id = get_p_peak_zc_id(ecg_lead, qrs_id, zcs);
 
     if (is_small_p(ecg_lead, qrs_id, zcs, peak_zc_id) ) {
         return delineation;
     }
 
-    peak_zc = zcs[peak_zc_id];
-    peak_index = peak_zc.index;
+    ZeroCrossing peak_zc = zcs[peak_zc_id];
+    size_t peak_index = peak_zc.index;
     delineation.peak_index = peak_index;
     delineation.specification = WaveSpecification.exist;
 
-    peak_zcs_ids = PeakZCsIds(peak_zc_id, peak_zc_id, peak_zc_id);
+    auto peak_zcs_ids = PeakZCsIds(peak_zc_id, peak_zc_id, peak_zc_id);
 
     check_flexure_p(peak_zcs_ids, ecg_lead, qrs_id, zcs, delineation);
 
