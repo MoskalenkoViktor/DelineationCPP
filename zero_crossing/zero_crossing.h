@@ -20,7 +20,6 @@ class ZeroCrossing
 public:
     ZeroCrossing(size_t index, int id, const std::vector<ModulusMaxima>& l_mms, 
         const std::vector<ModulusMaxima>& r_mms);
-
     size_t index;
     int id;
     ExtremumSign extremum_sign;
@@ -48,6 +47,7 @@ public:
 
 std::vector<ZeroCrossing> get_zcs(const std::vector<double>& wdc, 
     const std::vector<ModulusMaxima>& mms);
+
 
 std::vector<ZeroCrossing> get_zcs_in_window(const std::vector<double>& wdc, 
     const std::vector<ZeroCrossing>& zcs, const std::vector<int>& ids_zcs, 
