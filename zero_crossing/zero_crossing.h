@@ -40,6 +40,8 @@ public:
     std::shared_ptr<ModulusMaxima> s_r_mm;
     double s_ampl = 0;
 
+    double mm_amplitude = 0.0;
+
     void zc_proc();
 };
 
