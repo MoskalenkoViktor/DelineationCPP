@@ -31,7 +31,7 @@ double get_p_flexure_zc_id(const ECGLead& ecg_lead, size_t qrs_id, const ZeroCro
 
     std::vector<WaveDelineation> qrs_dels = ecg_lead.qrs_dels;
 
-    size_t flexure_zc_id = -1;
+    int flexure_zc_id = -1;
 
     size_t rr = qrs_dels[qrs_id].peak_index - qrs_dels[qrs_id - 1].peak_index;
 
