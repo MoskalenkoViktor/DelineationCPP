@@ -1,0 +1,8 @@
+//
+// Created by Blintsov Sergey on 28/10/2018.
+//
+
+#ifndef DELINEATIONCPP_REMOVAL_H
+#define DELINEATIONCPP_REMOVAL_H
+
+#endif //DELINEATIONCPP_REMOVAL_H
