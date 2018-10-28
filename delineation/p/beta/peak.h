@@ -9,7 +9,7 @@
 #include "../../../modulus_maxima/routines.h"
 #include "../../../delineation/p/routines.h"
 
-bool is_small_p(const ECGLead& ecg_lead, size_t qrs_id, ZeroCrossing zcs, size_t peak_zc_id) {
+bool is_small_p(const ECGLead& ecg_lead, size_t qrs_id, ZeroCrossing& zcs, size_t peak_zc_id) {
 
     bool result = false;
 
