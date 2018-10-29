@@ -90,6 +90,8 @@ static const double FIB_DELS_PART = 0.6;
 static const size_t BETA_SCALE = 3;
 static const double BETA_PEAK_ZC_AMPL = 0.7;
 
+static const std::string LOCAL_DB = "local_db";
+
 // БРЕД
 static const double OFFSET_MM_COEFF = 0.4;
 static const double OFFSET_MM_COEFF_OVERFLOW = 4.0;
