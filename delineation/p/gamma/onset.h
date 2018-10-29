@@ -4,7 +4,7 @@
 #include "../../../ecg_lead/ecg_lead.h"
 
 
-void onset_processing(const ECGLead& ecg_lead, WaveDelineation& delineation, const Morphology morphology_data, std::vector<Point> points) {
+void onset_processing(const ECGLead& ecg_lead, WaveDelineation& delineation, PMorphologyData& morphology_data, std::vector<Point> points) {
     size_t onset_index = delineation.onset_index;
     auto onset_value = ecg_lead.filter[onset_index];
     auto onset_sign = WaveSign::NONE;

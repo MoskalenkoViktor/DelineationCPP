@@ -4,7 +4,7 @@
 #include "gamma.h"
 
 
-void offset_processing(const ECGLead& ecg_lead, WaveDelineation& delineation, const Morphology morphology_data, std::vector<Point> points) {
+void offset_processing(const ECGLead& ecg_lead, WaveDelineation& delineation, PMorphologyData& morphology_data, std::vector<Point> points) {
     size_t offset_index = delineation.offset_index;
     auto offset_value = ecg_lead.filter[offset_index];
     auto offset_sign = WaveSign::NONE;
