@@ -93,4 +93,5 @@ static const double BETA_PEAK_ZC_AMPL = 0.7;
 // БРЕД
 static const double OFFSET_MM_COEFF = 0.4;
 static const double OFFSET_MM_COEFF_OVERFLOW = 4.0;
-
+static const double ONSET_MM_COEFF = 0.4;
+static const double ONSET_OFFSET_THR = 0.25;

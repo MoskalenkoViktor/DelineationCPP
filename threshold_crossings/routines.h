@@ -6,7 +6,7 @@
 
 
 size_t find_left_thc_index(const std::vector<double>& wdc, size_t begin_searching_index,
-    int end_searching_index, double threshold)
+    size_t end_searching_index, double threshold)
 {
     if (begin_searching_index == 0)
     {
@@ -16,7 +16,7 @@ size_t find_left_thc_index(const std::vector<double>& wdc, size_t begin_searchin
     size_t current_index = begin_searching_index;
     size_t prev_index = begin_searching_index - 1;
     
-    size_t left_border = std::max(0, end_searching_index);
+    int left_border = std::max(0, int(end_searching_index));
 
     while (prev_index > left_border)
     {
