@@ -79,3 +79,11 @@ static const double ALPHA_ONSET_MM = 0.4;
 static const double ALPHA_OFFSET_MM = 0.4;
 static const double ALPHA_OFFSET_MM_OVERFLOW = 4.0;
 static const double ALPHA_ONSET_OFFSET_THR = 0.25;
+
+static const size_t LEGACY_FIB_NUM_ZCS = 4;
+static const double LEGACY_FIB_STD = 0.15;
+
+static const double FIB_LEN_PART = 4.0;
+static const double FIB_AMPL_PART = 4.0;
+static const double FIB_DELS_PART = 0.6;
+
