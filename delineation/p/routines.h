@@ -72,7 +72,7 @@ size_t get_p_end_index(const ECGLead& ecg_lead, size_t qrs_id) {
     size_t begin_index = qrs_dels[qrs_id].onset_index - window;
     ModulusMaxima tmp_mm = find_left_mm(qrs_dels[qrs_id].onset_index, wdc);
     size_t end_index_candidate_1 = tmp_mm.index;
-    size_t end_index_candidate_2 = find_left_thc_index(wdc, qrs_dels[qrs_id].onset_index, int(begin_index), 0.0);
+    size_t end_index_candidate_2 = find_left_thc_index(wdc, qrs_dels[qrs_id].onset_index, begin_index, 0.0);
     size_t end_index = std::max(end_index_candidate_1, end_index_candidate_2 - 1);
 
     return end_index;
