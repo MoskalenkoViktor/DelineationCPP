@@ -14,7 +14,7 @@ public:
         const WaveDelineation& delineation, int target_scale_id);
 
     int correct = -1;
-    int t_sign;
+    ExtremumSign t_sign;
     size_t begin_index = 0;
     size_t end_index = 0;
     size_t min_dist = 0;
