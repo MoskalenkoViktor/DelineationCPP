@@ -87,3 +87,6 @@ static const double FIB_LEN_PART = 4.0;
 static const double FIB_AMPL_PART = 4.0;
 static const double FIB_DELS_PART = 0.6;
 
+static const size_t BETA_SCALE = 3;
+static const double BETA_PEAK_ZC_AMPL = 0.7;
+
