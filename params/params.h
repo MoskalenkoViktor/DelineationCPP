@@ -1,6 +1,6 @@
 #pragma once
 
-static const size_t WDC_SCALE_ID = 3;
+static const int WDC_SCALE_ID = 3;
 static const double GAMMA_SCALES_DIFF = 3.0;
 static const double GAMMA_LEFT_Q_PART = 0.7;
 static const double GAMMA_LEFT_ODD_XTD_ZCS_SHIFT = 0.03;
@@ -44,7 +44,7 @@ static const double GAMMA_RIGHT_XTD_ZCS_MM_PART = 0.12;
 
 
 static const double GAMMA_LEFT_WINDOW = 0.03;
-static const size_t GAMMA_BORD_SCALE = 2;
+static const int GAMMA_BORD_SCALE = 2;
 
 
 static const double GAMMA_RIGHT_WINDOW = 0.03;
@@ -80,17 +80,15 @@ static const double ALPHA_OFFSET_MM = 0.4;
 static const double ALPHA_OFFSET_MM_OVERFLOW = 4.0;
 static const double ALPHA_ONSET_OFFSET_THR = 0.25;
 
-static const size_t LEGACY_FIB_NUM_ZCS = 4;
+static const int LEGACY_FIB_NUM_ZCS = 4;
 static const double LEGACY_FIB_STD = 0.15;
 
 static const double FIB_LEN_PART = 4.0;
 static const double FIB_AMPL_PART = 4.0;
 static const double FIB_DELS_PART = 0.6;
 
-static const size_t BETA_SCALE = 3;
+static const int BETA_SCALE = 3;
 static const double BETA_PEAK_ZC_AMPL = 0.7;
-
-static const std::string LOCAL_DB = "local_db";
 
 // БРЕД
 static const double OFFSET_MM_COEFF = 0.4;

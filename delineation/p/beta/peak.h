@@ -8,6 +8,7 @@
 #include "../../../ecg_lead/ecg_lead.h"
 #include "../../../modulus_maxima/routines.h"
 #include "../../../delineation/p/routines.h"
+#include "../../../zero_crossing/zero_crossing.h"
 
 bool is_small_p(const ECGLead& ecg_lead, size_t qrs_id, ZeroCrossing& zcs, size_t peak_zc_id) {
 
