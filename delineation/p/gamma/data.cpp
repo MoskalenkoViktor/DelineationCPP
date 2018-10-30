@@ -10,7 +10,9 @@
 
 
 PMorphologyData::PMorphologyData(const ECGLead& ecg_lead,
-                                     const WaveDelineation& delineation, int target_scale_id) : wdc(ecg_lead.wdc) {
+                                     const WaveDelineation& delineation, int target_scale_id) {
+    const std::vector<std::vector<double>>& wdc_all_scales = ecg_lead.wdc;
+
     double rate = ecg_lead.rate;
 
     size_t onset_index = delineation.onset_index;
@@ -22,11 +24,11 @@ PMorphologyData::PMorphologyData(const ECGLead& ecg_lead,
     size_t begin_index = onset_index;
     size_t end_index = offset_index;
 
-    WaveDelineation wdc = wdc_all_scales[target_scale_id];
-    ZeroCrossing zcs = get_zcs_with_global_mms(wdc, begin_index, end_index);
+    std::vector<double> wdc = wdc_all_scales[target_scale_id];
+    std::vector<ZeroCrossing> zcs = get_zcs_with_global_mms(wdc, begin_index, end_index);
 
     if (zcs.size() > 0) {
-        dels_zcs_ids = [];
+        std::vector<size_t> dels_zcs_ids;
         peak_zc_id = 0;
         min_dist = wdc.size();
         for(size_t zc_id = 0; zc_id<zcs.size()-1; zc_id++) {

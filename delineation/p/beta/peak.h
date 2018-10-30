@@ -10,7 +10,7 @@
 #include "../../../delineation/p/routines.h"
 #include "../../../zero_crossing/zero_crossing.h"
 
-bool is_small_p(const ECGLead& ecg_lead, size_t qrs_id, ZeroCrossing& zcs, size_t peak_zc_id) {
+bool is_small_p(const ECGLead& ecg_lead, size_t qrs_id, const std::vector<ZeroCrossing>& zcs, size_t peak_zc_id) {
 
     bool result = false;
 
@@ -36,7 +36,7 @@ bool is_small_p(const ECGLead& ecg_lead, size_t qrs_id, ZeroCrossing& zcs, size_
     return result;
 }
 
-bool is_p_peak_zc_candidate_exist(const ECGLead& ecg_lead, size_t qrs_id, ZeroCrossing zcs) {
+bool is_p_peak_zc_candidate_exist(const ECGLead& ecg_lead, size_t qrs_id, std::vector<ZeroCrossing>& zcs) {
 
     double rate = ecg_lead.rate;
 
@@ -58,7 +58,7 @@ bool is_p_peak_zc_candidate_exist(const ECGLead& ecg_lead, size_t qrs_id, ZeroCr
     return result;
 }
 
-size_t get_p_peak_zc_id(const ECGLead& ecg_lead, size_t qrs_id, ZeroCrossing zcs) {
+size_t get_p_peak_zc_id(const ECGLead& ecg_lead, size_t qrs_id, std::vector<ZeroCrossing>& zcs) {
 
     double rate = ecg_lead.rate;
 

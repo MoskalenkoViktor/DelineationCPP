@@ -21,9 +21,9 @@ public:
     size_t length = 0;
     size_t current_dist = 0;
     int scale_id;
-    WaveDelineation wdc;
-    ZeroCrossing zcs;
-    std::vector<std::vector<int>> dels_zcs_ids;
+    const std::vector<double>* wdc;
+    std::vector<std::vector<ZeroCrossing>> zcs;
+    std::vector<size_t> dels_zcs_ids;
     std::vector<int> peak_zcs_ids;
     size_t peak_zc_id = 0;
 };

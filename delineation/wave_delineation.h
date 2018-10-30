@@ -8,7 +8,7 @@ enum class WaveSpecification
     ABSENCE = 0,
     EXIST = 1,
     BIPHASIC = 2,
-    FLECTURE = 3,
+    FLEXURE = 3,
     EXTRA = 5,
     ATRIAL_FIBRILLATION = 6
 };
