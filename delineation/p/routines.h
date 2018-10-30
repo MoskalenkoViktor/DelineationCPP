@@ -2,9 +2,9 @@
 // Created by Blintsov Sergey on 22/10/2018.
 //
 
-#pragma once;
+#pragma once
 
-#include "../../params/params.h";
+#include "../../params/params.h"
 #include "../../modulus_maxima/modulus_maxima.h"
 #include "../../threshold_crossings/routines.h"
 

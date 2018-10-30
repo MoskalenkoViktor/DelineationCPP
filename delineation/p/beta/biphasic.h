@@ -1,9 +1,9 @@
 //
 // Created by Blintsov Sergey on 22/10/2018.
 //
-#pragma once;
+#pragma once
 
-#include "../../peaks_zcs_ids.h";
+#include "../../peaks_zcs_ids.h"
 #include "../../wave_delineation.h"
 #include "../../../params/params.h"
 

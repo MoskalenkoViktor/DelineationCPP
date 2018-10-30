@@ -2,7 +2,7 @@
 // Created by Blintsov Sergey on 22/10/2018.
 //
 
-#pragma once;
+#pragma once
 
 #include "../../../params/params.h"
 #include "../../../ecg_lead/ecg_lead.h"

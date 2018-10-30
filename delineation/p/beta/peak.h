@@ -2,9 +2,9 @@
 // Created by Blintsov Sergey on 22/10/2018.
 //
 
-#pragma once;
+#pragma once
 
-#include "../../../params/params.h";
+#include "../../../params/params.h"
 #include "../../../ecg_lead/ecg_lead.h"
 #include "../../../modulus_maxima/routines.h"
 #include "../../../delineation/p/routines.h"
