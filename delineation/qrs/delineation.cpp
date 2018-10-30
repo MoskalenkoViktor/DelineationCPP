@@ -1,4 +1,3 @@
-#pragma once
 #include "../../ecg_lead/ecg_lead.h"
 #include "alpha/alpha.h"
 #include "beta/beta.h"

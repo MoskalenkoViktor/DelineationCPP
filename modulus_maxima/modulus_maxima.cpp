@@ -1,5 +1,6 @@
 #include "modulus_maxima.h"
 #include <cmath>
+#include <algorithm>
 
 
 ModulusMaxima::ModulusMaxima(size_t index, int id, const std::vector<double>& wdc)
