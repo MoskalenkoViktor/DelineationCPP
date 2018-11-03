@@ -119,3 +119,5 @@ static const double LOW_LIMIT_AMPLITUDE = 0.03;
 static const double OFFSET_MM_COEFF = 0.4;
 static const double OFFSET_MM_COEFF_OVERFLOW = 4.0;
 static const double ONSET_OFFSET_THRESHOLD = 0.25;
+static const double ONSET_MM_COEFF = 0.4;
+static const double ONSET_OFFSET_THRESHOLD = 0.25;
