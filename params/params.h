@@ -128,3 +128,5 @@ static const double PEAK_ZC_AMPLITUDE_DECREASING = 0.5;
 static const double FLEXURE_SHIFT = 0.03;
 static const double FLEXURE_AMPLITUDE_NEIGHBOUR = 0.45;
 static const double FLEXURE_AMPLITUDE_OLD_ZC = 0.35;
+static const double BEGIN_QRS_GAP_PROPORTION = 0.45;
+static const double ZCS_SEARCHING_WINDOW = 0.3;
