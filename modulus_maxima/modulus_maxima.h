@@ -11,9 +11,9 @@ class ECGLead;
 class ModulusMaxima
 {
 public:
-    ModulusMaxima(size_t index, int id, const std::vector<double>& wdc);
+    ModulusMaxima(size_t index, const std::vector<double>& wdc);
     size_t index;
-    int id;
+    //int id;
     double value;
     bool correctness;
 };

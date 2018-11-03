@@ -20,7 +20,12 @@ class ZeroCrossing
 public:
     ZeroCrossing(size_t index, int id, const std::vector<ModulusMaxima>& l_mms, 
         const std::vector<ModulusMaxima>& r_mms);
-    size_t index;
+
+    ZeroCrossing(size_t index, std::vector<double> wdc);
+    static ModulusMaxima right_mm;
+    static ModulusMaxima left_mm;
+
+    static size_t index;
     int id;
     ExtremumSign extremum_sign;
 

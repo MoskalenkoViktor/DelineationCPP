@@ -1,4 +1,5 @@
 #include "zero_crossing.h"
+#include "routines.h"
 #include <algorithm>
 #include <cmath>
 
@@ -8,6 +9,13 @@ ZeroCrossing::ZeroCrossing(size_t index, int id,
     index(index), id(id), l_mms(l_mms), r_mms(r_mms), extremum_sign(ExtremumSign::UNKNOWN)
 {
     zc_proc();
+}
+
+ZeroCrossing::ZeroCrossing(size_t index, std::vector<double> wdc) : index(index), wdc() {
+    this->index = index;
+    this->right_mm = ModulusMaxima(index, wdc);
+    this->left_mm = ModulusMaxima(index, wdc);
+    this->mm_amplitude = 0.0;
 }
 
 
