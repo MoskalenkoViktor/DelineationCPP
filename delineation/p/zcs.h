@@ -4,7 +4,9 @@
 
 #pragma once
 
-#include "../../zero_crossing/zero_crossing.h"
+#include "../../params/params.h"
+#include "../../ecg_lead/ecg_lead.h"
+#include "../../modulus_maxima/routines.h"
 #include "routines.h"
 
 std::vector<ZeroCrossing> get_p_zcs(const ECGLead& ecg_lead, size_t qrs_id, int window) {
