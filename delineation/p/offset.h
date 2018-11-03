@@ -5,18 +5,18 @@
 #include "../../modulus_maxima/routines.h"
 #include "delineation.h"
 #include "zcs.h"
-
+#include <cmath>
 
 void define_p_offset_index(const ECGLead& ecg_lead, WaveDelineation& delineation, std::vector<ZeroCrossing> zcs, size_t right_peak_zc_id, int end_index) {
-    size_t searching_offset_right_border_index = 0;
+    int searching_offset_right_border_index = 0;
 
     int wdc_scale_id = get_p_wdc_scale_id(ecg_lead);
     std::vector<double> wdc = ecg_lead.wdc[wdc_scale_id];
 
     if (right_peak_zc_id < zcs.size() - 1)
-        searching_offset_right_border_index = std::min(end_index, zcs[right_peak_zc_id + 1].index);
+        searching_offset_right_border_index = std::min(end_index, static_cast<int>(zcs[right_peak_zc_id+1].index));
     else
-        searching_offset_right_border_index = static_cast<size_t>(end_index);
+        searching_offset_right_border_index = (end_index);
 
     ModulusMaxima current_mm = find_right_mm(zcs[right_peak_zc_id].index, wdc);
     auto offset_mm_candidate_coeff = abs(current_mm.value) * float(OFFSET_MM_COEFF);
@@ -29,7 +29,7 @@ void define_p_offset_index(const ECGLead& ecg_lead, WaveDelineation& delineation
     }
 
     if (mm_list.empty()) {
-        delineation.offset_index = searching_offset_right_border_index;
+        delineation.offset_index = static_cast<size_t>(searching_offset_right_border_index);
         return;
     }
 
