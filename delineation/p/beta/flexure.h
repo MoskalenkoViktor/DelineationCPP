@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <cmath>
 #include "../../../params/params.h"
 #include "../../wave_delineation.h"
 #include "../../../ecg_lead/ecg_lead.h"
@@ -35,7 +36,7 @@ int get_p_flexure_zc_id(const ECGLead& ecg_lead, size_t qrs_id, std::vector<Zero
     size_t rr = qrs_dels[qrs_id].peak_index - qrs_dels[qrs_id - 1].peak_index;
 
     for (int zc_id = 1; zc_id<zcs.size()-1; zc_id++) {
-        if (abs(zcs[zc_id - 1].index - zcs[zc_id].index) < float(ALPHA_FLEX_SHIFT) * rr \
+        if (std::abs(zcs[zc_id - 1].index - zcs[zc_id].index) < float(ALPHA_FLEX_SHIFT) * rr \
  && abs(zcs[zc_id + 1].index - zcs[zc_id].index) < float(ALPHA_FLEX_SHIFT) * rr \
  && zcs[zc_id].mm_amplitude < float(ALPHA_FLEX_AMPL_NGBR) * zcs[zc_id - 1].mm_amplitude \
  && zcs[zc_id].mm_amplitude < float(ALPHA_FLEX_AMPL_NGBR) * zcs[zc_id + 1].mm_amplitude\

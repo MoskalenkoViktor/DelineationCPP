@@ -7,6 +7,7 @@
 #include "../routines.h"
 #include "../../../params/params.h"
 #include "data.h"
+#include <cmath>
 
 
 PMorphologyData::PMorphologyData(const ECGLead& ecg_lead,
@@ -30,10 +31,10 @@ PMorphologyData::PMorphologyData(const ECGLead& ecg_lead,
     if (zcs.size() > 0) {
         std::vector<size_t> dels_zcs_ids;
         peak_zc_id = 0;
-        min_dist = wdc.size();
+        min_dist = static_cast<int>(wdc.size());
         for(size_t zc_id = 0; zc_id<zcs.size()-1; zc_id++) {
             dels_zcs_ids.push_back(zc_id);
-            current_dist = abs(zcs[zc_id].index - peak_index);
+            current_dist = std::abs(static_cast<int>(zcs[zc_id].index) - static_cast<int>(peak_index));
             if (current_dist < min_dist) {
                 min_dist = current_dist;
                 peak_zc_id = zc_id;

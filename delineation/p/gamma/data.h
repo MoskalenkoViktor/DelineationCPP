@@ -17,9 +17,9 @@ public:
     ExtremumSign t_sign;
     size_t begin_index = 0;
     size_t end_index = 0;
-    size_t min_dist = 0;
+    int min_dist = 0;
     size_t length = 0;
-    size_t current_dist = 0;
+    int current_dist = 0;
     int scale_id;
     const std::vector<double>* wdc;
     std::vector<std::vector<ZeroCrossing>> zcs;
