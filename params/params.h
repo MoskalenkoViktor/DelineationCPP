@@ -91,19 +91,19 @@ static const int BETA_SCALE = 3;
 static const double BETA_PEAK_ZC_AMPL = 0.7;
 
 // БРЕД
-static const double OFFSET_MM_COEFF = 0.4;
-static const double OFFSET_MM_COEFF_OVERFLOW = 4.0;
-static const double ONSET_MM_COEFF = 0.4;
-static const double ONSET_OFFSET_THR = 0.25;
-//static const double ZCS_PEAK_SEARCHING_SHIFT = 0.05;
-static const double PEAK_ZC_AMPLITUDE_DECREASING_LEFT_PRIVILEGE = 4.0;
-static const double PEAK_ZC_AMPLITUDE_DECREASING_RIGHT_PRIVILEGE = 4.0;
-static const double PEAK_ZC_AMPLITUDE_DECREASING_BEGIN_PART = 0.4;
-static const double PEAK_ZC_AMPLITUDE_DECREASING = 0.4;
-static const double PEAK_ZC_AMPLITUDE_DECREASING_POW = 0.4;
-static const double FLEXURE_SHIFT = 0.4;
-static const double FLEXURE_AMPLITUDE_NEIGHBOUR = 0.4;
-static const double FLEXURE_AMPLITUDE_OLD_ZC = 0.4;
+//static const double OFFSET_MM_COEFF = 0.4;
+//static const double OFFSET_MM_COEFF_OVERFLOW = 4.0;
+//static const double ONSET_MM_COEFF = 0.4;
+//static const double ONSET_OFFSET_THR = 0.25;
+////static const double ZCS_PEAK_SEARCHING_SHIFT = 0.05;
+//static const double PEAK_ZC_AMPLITUDE_DECREASING_LEFT_PRIVILEGE = 4.0;
+//static const double PEAK_ZC_AMPLITUDE_DECREASING_RIGHT_PRIVILEGE = 4.0;
+//static const double PEAK_ZC_AMPLITUDE_DECREASING_BEGIN_PART = 0.4;
+//static const double PEAK_ZC_AMPLITUDE_DECREASING = 0.4;
+//static const double PEAK_ZC_AMPLITUDE_DECREASING_POW = 0.4;
+//static const double FLEXURE_SHIFT = 0.4;
+//static const double FLEXURE_AMPLITUDE_NEIGHBOUR = 0.4;
+//static const double FLEXURE_AMPLITUDE_OLD_ZC = 0.4;
 
 
 // NEW
@@ -116,3 +116,6 @@ static const double ZCS_PEAK_SEARCHING_SHIFT = 0.08;
 static const int FIB_NUM_ZCS = 2;
 static const double FIB_STD = 0.15;
 static const double LOW_LIMIT_AMPLITUDE = 0.03;
+static const double OFFSET_MM_COEFF = 0.4;
+static const double OFFSET_MM_COEFF_OVERFLOW = 4.0;
+static const double ONSET_OFFSET_THRESHOLD = 0.25;
