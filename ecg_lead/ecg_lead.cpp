@@ -52,35 +52,13 @@ void ECGLead::calc_mms()
         {
             std::fill(curr_ids_mms.begin() + curr_index, curr_ids_mms.begin() + mm.index, curr_id);
             curr_index = mm.index;
-            curr_id = mm.id;
         }
         std::fill(curr_ids_mms.begin() + curr_index, curr_ids_mms.end(), curr_id);
         ids_mms.push_back(curr_ids_mms);
     }
 }
 
-void ECGLead::calc_zcs()
-{
-    zcs.clear();
-    ids_zcs.clear();
-    for (size_t id = 0; id < wdc.size(); ++id)
-    {
-        zcs.push_back(get_zcs(wdc[id], mms[id]));
-        std::vector<ZeroCrossing>& curr_zcs = zcs.back();
 
-        std::vector<int> curr_ids_zcs(wdc[id].size(), 0);
-        int curr_id = -1;
-        size_t curr_index = 0;
-        for (const ZeroCrossing& zc : curr_zcs)
-        {
-            std::fill(curr_ids_zcs.begin() + curr_index, curr_ids_zcs.begin() + zc.index, curr_id);
-            curr_index = zc.index;
-            curr_id = static_cast<int>(zc.id);
-        }
-        std::fill(curr_ids_zcs.begin() + curr_index, curr_ids_zcs.end(), curr_id);
-        ids_zcs.push_back(curr_ids_zcs);
-    }
-}
 
 void ECGLead::qrs_del()
 {
@@ -144,4 +122,46 @@ void ECGLead::init_plot_data()
 
 void ECGLead::print_del_info()
 {
+}
+
+void ECGLead::delineation() {
+    // TODO Make for qrs and p!
+
+
+    //this->cur_qrs_dels_seq = get_qrs_delineations(self, 0, len(this->wdc[0]));
+    //this->cur_t_dels_seq = get_t_delineations(self)
+    this->cur_p_dels_seq = get_p_delineations(*this);
+
+    //this->qrs_dels.append(this->cur_qrs_dels_seq)
+    //this->t_dels.append(this->cur_t_dels_seq)
+    //this->p_dels.append(this->cur_p_dels_seq)
+
+    if (this->cur_qrs_dels_seq.empty())
+        return;
+
+    size_t next_seq_start = this->cur_qrs_dels_seq[-1].offset_index;
+
+//    this->cur_qrs_dels_seq = []
+//    this->cur_t_dels_seq = []
+    //this->cur_p_dels_seq = []
+
+    while (next_seq_start < int(this->wdc[0].size() * 0.8)) {
+//        this->cur_qrs_dels_seq = get_qrs_delineations(self, next_seq_start, len(this->wdc[0]))
+//        this->cur_t_dels_seq = get_t_delineations(self)
+        this->cur_p_dels_seq = get_p_delineations(*this);
+
+        if (!this->cur_qrs_dels_seq.empty()) {
+//            this->qrs_dels.append(this->cur_qrs_dels_seq)
+//            this->t_dels.append(this->cur_t_dels_seq)
+            //this->p_dels.push_back(this->cur_p_dels_seq);
+
+            next_seq_start = this->cur_qrs_dels_seq[-1].offset_index;
+        }
+        else
+            next_seq_start += int((this->wdc[0].size() - next_seq_start) * 0.1);
+
+        this->cur_qrs_dels_seq;
+        this->cur_t_dels_seq;
+        this->cur_p_dels_seq;
+    }
 }

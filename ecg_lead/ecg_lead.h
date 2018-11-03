@@ -41,7 +41,7 @@ public:
     std::vector<WaveDelineation> cur_p_dels_seq;
     std::vector<WaveDelineation> cur_t_dels_seq;
 
-    //void delineation();
+    void delineation();
 // END NEW
     std::vector<std::vector<ZeroCrossing>> zcs;
     std::vector<std::vector<int>> ids_zcs;
