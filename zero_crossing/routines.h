@@ -5,6 +5,7 @@
 
 std::vector<ZeroCrossing> get_zcs_only_indexes(std::vector<double> wdc, size_t begin_index, size_t end_index);
 void init_zcs_with_global_mms(std::vector<double> wdc, std::vector<ZeroCrossing> zcs, size_t begin_index, size_t end_index);
+void init_zcs_with_local_mms(std::vector<double> wdc, std::vector<ZeroCrossing> zcs, size_t begin_index, size_t end_index);
 void init_zcs_with_special_mms(std::vector<double> wdc, std::vector<ZeroCrossing> zcs, size_t begin_index, size_t end_index, int window);
 
 std::vector<ZeroCrossing> get_zcs_with_global_mms(std::vector<double> wdc, size_t begin_index, size_t end_index) {
@@ -71,7 +72,7 @@ std::vector<ZeroCrossing> get_zcs_only_indexes(std::vector<double> wdc, size_t b
 
 void init_zcs_with_global_mms(std::vector<double> wdc, std::vector<ZeroCrossing> zcs, size_t begin_index, size_t end_index) {
 
-    if (zcs) {
+    if (!zcs.empty()) {
 
         if (zcs.size() == 1) {
             if (zcs[0].index != begin_index)
@@ -111,7 +112,7 @@ void init_zcs_with_global_mms(std::vector<double> wdc, std::vector<ZeroCrossing>
 
 void init_zcs_with_local_mms(std::vector<double> wdc, std::vector<ZeroCrossing> zcs, size_t begin_index, size_t end_index) {
 
-    if (zcs) {
+    if (!zcs.empty()) {
         if (zcs.size() == 1) {
             if (zcs[0].index != begin_index)
                 zcs[0].init_local_mm_left(begin_index, wdc);
@@ -151,7 +152,7 @@ void init_zcs_with_local_mms(std::vector<double> wdc, std::vector<ZeroCrossing> 
 
 void init_zcs_with_special_mms(std::vector<double> wdc, std::vector<ZeroCrossing> zcs, size_t begin_index, size_t end_index, int window) {
 
-    if (zcs) {
+    if (!zcs.empty()) {
         if (zcs.size() == 1) {
             if (zcs[0].index != begin_index)
                 zcs[0].init_special_mm_left(std::max(begin_index, zcs[0].index - window), wdc);
