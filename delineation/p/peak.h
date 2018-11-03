@@ -7,7 +7,7 @@
 #include "routines.h"
 
 
-bool is_p_peak_zc_candidate_exist(const ECGLead& ecg_lead, size_t qrs_id, ZeroCrossing& zcs) {
+bool is_p_peak_zc_candidate_exist(const ECGLead& ecg_lead, size_t qrs_id, std::vector<ZeroCrossing> zcs) {
 
     double rate = ecg_lead.rate;
 
@@ -29,7 +29,7 @@ bool is_p_peak_zc_candidate_exist(const ECGLead& ecg_lead, size_t qrs_id, ZeroCr
 }
 
 
-size_t get_p_peak_zc_id(const ECGLead& ecg_lead, size_t qrs_id, ZeroCrossing& zcs) {
+size_t get_p_peak_zc_id(const ECGLead& ecg_lead, size_t qrs_id, std::vector<ZeroCrossing> zcs) {
 
     double rate = ecg_lead.rate;
 
