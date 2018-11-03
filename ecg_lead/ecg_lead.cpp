@@ -8,11 +8,12 @@
 #include "../delineation/p/delineation.h"
 #include "../delineation/wave_delineation.h"
 #include <tuple>
+#include <vector>
 #include "../params/params.h"
 
 
 ECGLead::ECGLead(const std::string& lead_name, const std::vector<double>& data, double sample_rate) :
-    name_(lead_name), signal_(data), rate(sample_rate)
+    name_(lead_name), signal_(data), sampling_rate(sample_rate)
 { }
 
 void ECGLead::cwt_filtration()
@@ -118,15 +119,15 @@ void ECGLead::t_del()
 
 void ECGLead::p_del()
 {
-    std::vector<WaveDelineation> cur_p_dels_seq;
-    std::vector<Morphology> cur_p_morph_seq;
-    std::tie(cur_p_dels_seq, cur_p_morph_seq) = get_p_dels(*this);
-
-    p_dels = cur_p_dels_seq;
-    p_morphs = cur_p_morph_seq;
-
-    fib_analysis_imbalance();
-    fib_analysis_shortage();
+//    std::vector<WaveDelineation> cur_p_dels_seq;
+//    std::vector<Morphology> cur_p_morph_seq;
+//    std::tie(cur_p_dels_seq, cur_p_morph_seq) = get_p_dels(*this);
+//
+//    p_dels = cur_p_dels_seq;
+//    p_morphs = cur_p_morph_seq;
+//
+//    fib_analysis_imbalance();
+//    fib_analysis_shortage();
 }
 
 void ECGLead::del_correction()

@@ -16,8 +16,10 @@
 #include "routines.h"
 #include "../../params/params.h"
 
+#include "../../zero_crossing/zero_crossing.h"
+
 ZeroCrossing qrs_zc = nullptr;
-std::vector<WaveDelineation> get_p_delineations(const ECGLead& ecg_lead);
+std::vector<WaveDelineation> get_p_delineations(ECGLead& ecg_lead);
 bool check_for_atrial_fibrillation(WaveDelineation delineation, std::vector<ZeroCrossing> zcs);
 bool is_small_p(const ECGLead& ecg_lead, size_t qrs_id, std::vector<ZeroCrossing> zcs, size_t peak_zc_id);
 
@@ -64,7 +66,7 @@ double calculateSD(std::vector<double> data) {
     return sqrt(standardDeviation / data.size());
 }
 
-std::vector<WaveDelineation> get_p_delineations(const ECGLead& ecg_lead) {
+std::vector<WaveDelineation> get_p_delineations(ECGLead& ecg_lead) {
     std::vector<WaveDelineation> delineations;
 
     for (size_t qrs_id = 1; qrs_id < count(ecg_lead.cur_qrs_dels_seq() ) ) {

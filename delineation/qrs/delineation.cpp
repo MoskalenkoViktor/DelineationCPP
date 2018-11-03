@@ -6,7 +6,7 @@
 
 
 std::pair<std::vector<WaveDelineation>, std::vector<Morphology>> get_qrs_dels(
-    const ECGLead& ecg_lead, size_t begin_index, size_t end_index)
+    ECGLead& ecg_lead, size_t begin_index, size_t end_index)
 {
     auto qrs_zcs = alpha_processing(ecg_lead, begin_index, end_index);
 

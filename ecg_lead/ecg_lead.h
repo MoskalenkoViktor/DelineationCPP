@@ -1,17 +1,20 @@
 #pragma once
 #include <vector>
 #include <string>
-#include "../modulus_maxima/modulus_maxima.h"
+
+//#include "../modulus_maxima/modulus_maxima.h"
+//#include "../zero_crossing/zero_crossing.h"
+//#include "../delineation/wave_delineation.h"
+#include "../delineation/qrs/delineation.h"
+#include "../filtration/cwt_filtration.h"
+#include "../filtration/common_filtration.h"
+#include "../delineation/p/delineation.h"
+#include "../discrete_wavelet_transform/wdc.h"
 #include "../zero_crossing/zero_crossing.h"
-#include "../delineation/wave_delineation.h"
 
+// TODO Release exception class InvalidECGLead
 
-class ModulusMaxima;
-class ZeroCrossing;
-
-
-class ECGLead
-{
+class ECGLead {
 public:
     ECGLead(const std::string& lead_name, 
         const std::vector<double>& data, double sample_rate);
@@ -28,11 +31,18 @@ public:
     void calc_characteristics();
     void init_plot_data();
     void print_del_info();
-
+// NEW
     std::vector<std::vector<double>> wdc;
     std::vector<double> filter;
-    double rate;
+    std::vector<double> characteristics;
+    double sampling_rate;
 
+    std::vector<WaveDelineation> cur_qrs_dels_seq;
+    std::vector<WaveDelineation> cur_p_dels_seq;
+    std::vector<WaveDelineation> cur_t_dels_seq;
+
+    //void delineation();
+// END NEW
     std::vector<std::vector<ZeroCrossing>> zcs;
     std::vector<std::vector<int>> ids_zcs;
 
