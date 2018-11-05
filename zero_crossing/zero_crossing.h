@@ -22,19 +22,19 @@ public:
     int id;
     ExtremumSign extremum_sign = ExtremumSign::UNKNOWN;
 
-    std::vector<ModulusMaxima> l_mms;
-    std::vector<ModulusMaxima> r_mms;
+    ModulusMaxima l_mms;
+    ModulusMaxima r_mms;
 
-    std::shared_ptr<ModulusMaxima> g_l_mm;
-    std::shared_ptr<ModulusMaxima> g_r_mm;
+    ModulusMaxima g_l_mm;
+    ModulusMaxima g_r_mm;
     double g_ampl = 0;
 
-    std::shared_ptr<ModulusMaxima> l_l_mm;
-    std::shared_ptr<ModulusMaxima> l_r_mm;
+    ModulusMaxima l_l_mm;
+    ModulusMaxima l_r_mm;
     double l_ampl = 0;
 
-    std::shared_ptr<ModulusMaxima> s_l_mm;
-    std::shared_ptr<ModulusMaxima> s_r_mm;
+    ModulusMaxima s_l_mm;
+    ModulusMaxima s_r_mm;
     double s_ampl = 0;
 
     double mm_amplitude = 0.0;

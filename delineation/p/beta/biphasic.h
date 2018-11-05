@@ -7,7 +7,7 @@
 #include "../../wave_delineation.h"
 #include "../../../params/params.h"
 
-void check_left_biphasic_p(PeakZCsIds& triplet, const ECGLead& ecg_lead, std::vector<ZeroCrossing> zcs, WaveDelineation delineation) {
+void check_left_biphasic_p(PeakZCsIds& triplet, const ECGLead& ecg_lead, std::vector<ZeroCrossing>& zcs, WaveDelineation& delineation) {
     size_t left_peak_zc_id = triplet.left_zc_id;
     ZeroCrossing left_peak_zc = zcs[left_peak_zc_id];
 
@@ -16,8 +16,8 @@ void check_left_biphasic_p(PeakZCsIds& triplet, const ECGLead& ecg_lead, std::ve
 
     double rate = ecg_lead.rate;
 
-    auto biphasic_th_more_peak_zc = float(ALPHA_BIPHASE_AMPL_MORE) * abs(right_peak_zc.r_mms.value);
-    auto biphasic_th_less_peak_zc = float(ALPHA_BIPHASE_AMPL_LESS) * abs(right_peak_zc.r_mms.value);
+    auto biphasic_th_more_peak_zc = float(ALPHA_BIPHASE_AMPL_MORE) * abs(right_peak_zc.s_r_mm.value);
+    auto biphasic_th_less_peak_zc = float(ALPHA_BIPHASE_AMPL_LESS) * abs(right_peak_zc.s_r_mm.value);
 
     if (biphasic_th_more_peak_zc < abs(left_peak_zc.l_mms.value) < biphasic_th_less_peak_zc) {
 
@@ -30,10 +30,10 @@ void check_left_biphasic_p(PeakZCsIds& triplet, const ECGLead& ecg_lead, std::ve
 
             if (biphasic_th_more_prev_zc < abs(prev_zc.l_mms.value) < biphasic_th_less_prev_zc) {
 
-                int amplitude = abs(zcs[left_peak_zc_id].l_mms.value) + abs(zcs[right_peak_zc_id].r_mms.value);
+                double amplitude = abs(zcs[left_peak_zc_id].l_mms.value) + abs(zcs[right_peak_zc_id].r_mms.value);
 
                 if (prev_zc.mm_amplitude > float(ALPHA_BIPHASE_AMPL) * amplitude) {
-                    delineation.specification = WaveSpecification.biphasic;
+                    delineation.specification = WaveSpecification::BIPHASIC;
 
                     triplet.left_zc_id = prev_zc_id;
                 }
@@ -43,7 +43,7 @@ void check_left_biphasic_p(PeakZCsIds& triplet, const ECGLead& ecg_lead, std::ve
 }
 
 
-void check_right_biphasic_p(triplet, const ECGLead& ecg_lead, std::vector<ZeroCrossing> zcs, std::vector<WaveDelineation> delineation) {
+void check_right_biphasic_p(PeakZCsIds& triplet, const ECGLead& ecg_lead, std::vector<ZeroCrossing>& zcs, WaveDelineation& delineation) {
     size_t left_peak_zc_id = triplet.left_zc_id;
     ZeroCrossing left_peak_zc = zcs[left_peak_zc_id];
 
@@ -52,8 +52,8 @@ void check_right_biphasic_p(triplet, const ECGLead& ecg_lead, std::vector<ZeroCr
 
     double sampling_rate = ecg_lead.rate;
 
-    auto biphasic_th_more_peak_zc = float(ALPHA_BIPHASE_AMPL_MORE) * abs(right_peak_zc.r_mms.value);
-    auto biphasic_th_less_peak_zc = float(ALPHA_BIPHASE_AMPL_LESS) * abs(right_peak_zc.r_mms.value);
+    auto biphasic_th_more_peak_zc = float(ALPHA_BIPHASE_AMPL_MORE) * abs(right_peak_zc.s_r_mm.value);
+    auto biphasic_th_less_peak_zc = float(ALPHA_BIPHASE_AMPL_LESS) * abs(right_peak_zc.s_r_mm.value);
 
     if (biphasic_th_more_peak_zc < abs(left_peak_zc.l_mms.value) < biphasic_th_less_peak_zc) {
 
@@ -65,10 +65,10 @@ void check_right_biphasic_p(triplet, const ECGLead& ecg_lead, std::vector<ZeroCr
             auto biphasic_th_less_next_zc = float(ALPHA_BIPHASE_AMPL_LESS) * abs(next_zc.r_mms.value);
 
             if (biphasic_th_more_next_zc < abs(next_zc.l_mms.value) <= biphasic_th_less_next_zc) {
-                long amplitude = abs(zcs[left_peak_zc_id].l_mms.value) + abs(zcs[right_peak_zc_id].r_mms.value);
+                double amplitude = abs(zcs[left_peak_zc_id].l_mms.value) + abs(zcs[right_peak_zc_id].r_mms.value);
 
                 if (next_zc.mm_amplitude > float(ALPHA_BIPHASE_AMPL) * amplitude) {
-                    delineation.specification = WaveSpecification.biphasic;
+                    delineation.specification = WaveSpecification::BIPHASIC;
 
                     triplet.right_zc_id = next_zc_id;
                 }
