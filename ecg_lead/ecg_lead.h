@@ -45,6 +45,9 @@ public:
     std::vector<WaveDelineation> p_dels;
     std::vector<Morphology> p_morphs;
 
+    std::vector<WaveDelineation> t_dels;
+    std::vector<Morphology> t_morphs;
+
 private:
     std::vector<double> signal_;
     std::vector<double> origin_;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../../../params/params.h"
+#include "../zcs.h"
 
 WaveDelineation get_p_del(const ECGLead& ecg_lead, size_t qrs_id) {
     WaveDelineation delineation;

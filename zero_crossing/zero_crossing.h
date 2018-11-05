@@ -41,6 +41,7 @@ public:
     double s_ampl = 0;
 
     void zc_proc();
+    void special(const std::vector<double>& wdc, int left_index, int right_index);
 };
 
 
