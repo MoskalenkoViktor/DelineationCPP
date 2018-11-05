@@ -1,4 +1,4 @@
-#pragma once;
+#pragma once
 
 #include "../params/params.h"
 #include <cmath>
@@ -128,7 +128,7 @@ std::vector<ZeroCrossing> get_zcs_in_window(const std::vector<double>& wdc,
     if (!target_zcs.empty())
     {
 
-        ZeroCrossing& left_zc = target_zcs[0];
+        ZeroCrossing left_zc = target_zcs[0];
         if (!left_zc.l_mms.empty())
         {
             size_t num_passed = 0;

@@ -1,4 +1,4 @@
-#pragma once;
+#pragma once
 
 #include "wave_delineation.h"
 #include "../params/params.h"

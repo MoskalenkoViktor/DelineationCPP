@@ -10,18 +10,18 @@
 #include "../../../ecg_lead/ecg_lead.h"
 
 
-void check_flexure_p(const Peak_ZCs_Ids* triplet, const ECGLead& ecg_lead, size_t qrs_id, const std::vector<ZeroCrossing>* zcs, WaveDelineation delineation) {
+void check_flexure_p(PeakZCsIds& triplet, const ECGLead& ecg_lead, size_t qrs_id, std::vector<ZeroCrossing>& zcs, WaveDelineation delineation) {
 
-    int zc_flexure_id = get_p_flexure_zc_id(ecg_lead, qrs_id, zcs, triplet->center_zc_id);
+    size_t zc_flexure_id = get_p_flexure_zc_id(ecg_lead, qrs_id, zcs, triplet.center_zc_id);
 
     if (zc_flexure_id != -1) {
-        int peak_zc_id = zc_flexure_id;
-        double left_peak_zc_id = zc_flexure_id - 1;
-        double right_peak_zc_id = zc_flexure_id + 1;
+        size_t peak_zc_id = zc_flexure_id;
+        size_t left_peak_zc_id = zc_flexure_id - 1;
+        size_t right_peak_zc_id = zc_flexure_id + 1;
 
-        triplet->left_zc_id = left_peak_zc_id;
-        triplet->center_zc_id = peak_zc_id;
-        triplet->right_zc_id = right_peak_zc_id;
+        triplet.left_zc_id = left_peak_zc_id;
+        triplet.center_zc_id = peak_zc_id;
+        triplet.right_zc_id = right_peak_zc_id;
 
         delineation.specification = WaveSpecification::FLEXURE;
         delineation.peak_index = zcs[peak_zc_id].index;

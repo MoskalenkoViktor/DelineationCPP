@@ -22,8 +22,8 @@ public:
     int id;
     ExtremumSign extremum_sign = ExtremumSign::UNKNOWN;
 
-    ModulusMaxima l_mms;
-    ModulusMaxima r_mms;
+    std::vector<ModulusMaxima> l_mms;
+    std::vector<ModulusMaxima> r_mms;
 
     ModulusMaxima g_l_mm;
     ModulusMaxima g_r_mm;

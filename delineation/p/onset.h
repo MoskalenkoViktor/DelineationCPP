@@ -1,4 +1,4 @@
-#pragma once;
+#pragma once
 
 #include "../../params/params.h"
 #include "../../ecg_lead/ecg_lead.h"
