@@ -1,4 +1,6 @@
 #pragma once
+
+#include <iostream>
 #include "../../ecg_lead/ecg_lead.h"
 #include "alpha/alpha.h"
 #include "beta/beta.h"
@@ -8,6 +10,7 @@
 std::pair<std::vector<WaveDelineation>, std::vector<Morphology>> get_qrs_dels(
     const ECGLead& ecg_lead, size_t begin_index, size_t end_index)
 {
+    std::cout << "QRS = "<< ecg_lead.qrs_dels.size()<<std::endl;
     auto qrs_zcs = alpha_processing(ecg_lead, begin_index, end_index);
 
     std::vector<WaveDelineation> delineations;
