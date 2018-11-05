@@ -1,6 +1,8 @@
 #pragma once
 
 #include "../routines.h"
+#include "../../../params/params.h"
+#include "points.h"
 
 Morphology get_p_morph(const ECGLead& ecg_lead, size_t del_id, const WaveDelineation& delineation) {
     auto main_scale_id = get_p_wdc_scale_id(ecg_lead);
