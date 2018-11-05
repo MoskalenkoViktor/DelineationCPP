@@ -14,7 +14,7 @@
 #include "../zcs.h"
 
 
-void define_p_offset_index(const ECGLead& ecg_lead, WaveDelineation delineation, std::vector<ZeroCrossing> zcs, size_t right_peak_zc_id, size_t end_index) {
+void define_p_offset_index(const ECGLead& ecg_lead, WaveDelineation& delineation, std::vector<ZeroCrossing> zcs, size_t right_peak_zc_id, size_t end_index) {
 
     size_t searching_offset_right_border_index;
 
@@ -44,7 +44,7 @@ void define_p_offset_index(const ECGLead& ecg_lead, WaveDelineation delineation,
 
     size_t correct_offset_mm_id = 0;
 
-    if (&delineation.specification != &WaveSpecification.biphasic) {
+    if (delineation.specification != WaveSpecification::BIPHASIC) {
 
         for(size_t offset_mm_id = 1; offset_mm_id<mm_list.size(); offset_mm_id++) {
             if (mm_list[offset_mm_id].correctness) {

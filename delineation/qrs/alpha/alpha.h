@@ -5,6 +5,7 @@
 #include "first.h"
 #include "second.h"
 #include "third.h"
+#include "../../../zero_crossing/routines.h"
 
 
 std::vector<ZeroCrossing> alpha_processing(const ECGLead& ecg_lead, size_t begin_index, size_t end_index)
