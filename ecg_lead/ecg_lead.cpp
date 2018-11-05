@@ -8,6 +8,7 @@
 #include "../delineation/wave_delineation.h"
 #include <tuple>
 #include "../params/params.h"
+#include "../delineation/p/delineation.h"
 
 
 ECGLead::ECGLead(const std::string& lead_name, const std::vector<double>& data, double sample_rate) :
@@ -120,8 +121,8 @@ void ECGLead::p_del() {
     std::vector<Morphology> cur_p_morph_seq;
     std::tie(cur_p_dels_seq, cur_p_morph_seq) = get_p_dels(*this);
 
-    fib_analysis_imbalance(*this);
-    fib_analysis_shortage(*this);
+//    fib_analysis_imbalance(*this);
+//    fib_analysis_shortage(*this);
 }
 
 void ECGLead::del_correction()
