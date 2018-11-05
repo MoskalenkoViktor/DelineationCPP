@@ -2,7 +2,7 @@
 #include <cmath>
 
 
-ModulusMaxima::ModulusMaxima(size_t index, const std::vector<double>& wdc)
+ModulusMaxima::ModulusMaxima(size_t index, int id, const std::vector<double>& wdc)
 {
     this->index = index;
     //this->id = id;

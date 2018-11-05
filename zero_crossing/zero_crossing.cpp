@@ -13,108 +13,56 @@ ZeroCrossing::ZeroCrossing(size_t index, int id,
 
 void ZeroCrossing::zc_proc()
 {
-//    if (l_mms.size() > 0)
-//    {
-//        auto it = std::max_element(l_mms.begin(), l_mms.end(),
-//                                   [](const ModulusMaxima& first, const ModulusMaxima& second) {
-//                                       return std::abs(first.value) < std::abs(second.value);
-//                                   });
-//        g_l_mm = std::make_shared<ModulusMaxima>(*it);
-//        l_l_mm = std::make_shared<ModulusMaxima>(l_mms[0]);
-//    }
-//    if (r_mms.size() > 0)
-//    {
-//        auto it = std::max_element(r_mms.begin(), r_mms.end(),
-//                                   [](const ModulusMaxima& first, const ModulusMaxima& second) {
-//                                       return std::abs(first.value) < std::abs(second.value);
-//                                   });
-//        g_r_mm = std::make_shared<ModulusMaxima>(*it);
-//        l_r_mm = std::make_shared<ModulusMaxima>(r_mms[0]);
-//    }
-//
-//    if (g_l_mm && g_r_mm)
-//    {
-//        g_ampl = std::abs(g_l_mm->value) + std::abs(g_r_mm->value);
-//        if ((g_l_mm->value < 0) && (g_r_mm->value > 0))
-//        {
-//            extremum_sign = ExtremumSign::POSITIVE;
-//        }
-//        else
-//        {
-//            extremum_sign = ExtremumSign::NEGATIVE;
-//        }
-//    }
-//    if (l_l_mm && l_r_mm)
-//    {
-//        l_ampl = std::abs(l_l_mm->value) + std::abs(l_r_mm->value);
-//    }
-
-    g_l_mm = l_mms[np.argmax([abs(mm.value) for mm in self.l_mms])] if len(self.l_mms) > 0 else None
-        self.g_r_mm = self.r_mms[np.argmax([abs(mm.value) for mm in self.r_mms])] if len(self.r_mms) > 0 else None
-        if self.g_l_mm is not None and self.g_r_mm is not None:
-    self.g_ampl = abs(self.g_l_mm.value) + abs(self.g_r_mm.value)
-
-    if self.g_l_mm.value < 0 and self.g_r_mm.value > 0:
-    self.extremum_sign = ExtremumSign.positive
-    else:
-    self.extremum_sign = ExtremumSign.negative
-
-    self.l_l_mm = self.l_mms[0] if len(self.l_mms) > 0 else None
-        self.l_r_mm = self.r_mms[0] if len(self.r_mms) > 0 else None
-        if self.l_l_mm is not None and self.l_r_mm is not None:
-    self.l_ampl = abs(self.l_l_mm.value) + abs(self.l_r_mm.value)
-}
-
-
-std::vector<ZeroCrossing> get_zcs(const std::vector<double>& wdc,
-                                  const std::vector<ModulusMaxima>& mms)
-{
-    std::vector<size_t> indexes;
-    for (size_t i = 1; i < wdc.size(); ++i)
+    if (l_mms.size() > 0)
     {
-        if (wdc[i] * wdc[i - 1] < 0)
-        {
-            indexes.push_back(i);
-        }
+        auto it = std::max_element(l_mms.begin(), l_mms.end(),
+                                   [](const ModulusMaxima& first, const ModulusMaxima& second) {
+                                       return std::abs(first.value) < std::abs(second.value);
+                                   });
+        g_l_mm = std::make_shared<ModulusMaxima>(*it);
+        l_l_mm = std::make_shared<ModulusMaxima>(l_mms[0]);
+    }
+    if (r_mms.size() > 0)
+    {
+        auto it = std::max_element(r_mms.begin(), r_mms.end(),
+                                   [](const ModulusMaxima& first, const ModulusMaxima& second) {
+                                       return std::abs(first.value) < std::abs(second.value);
+                                   });
+        g_r_mm = std::make_shared<ModulusMaxima>(*it);
+        l_r_mm = std::make_shared<ModulusMaxima>(r_mms[0]);
     }
 
-    std::vector<ZeroCrossing> zcs;
-    std::vector<ModulusMaxima> r_mms;
-    int mm_id = 0;
-
-    for (int id = 0; id < indexes.size(); ++id)
+    if (g_l_mm && g_r_mm)
     {
-        size_t index = indexes[id];
-
-        // Define list of left mms
-        std::vector<ModulusMaxima> l_mms;
-        if (id > 0)
+        g_ampl = std::abs(g_l_mm->value) + std::abs(g_r_mm->value);
+        if ((g_l_mm->value < 0) && (g_r_mm->value > 0))
         {
-            l_mms = r_mms;
+            extremum_sign = ExtremumSign::POSITIVE;
         }
         else
         {
-            while ((mm_id < mms.size()) && (mms[mm_id].index < index))
-            {
-                l_mms.push_back(mms[mm_id]);
-                ++mm_id;
-            }
+            extremum_sign = ExtremumSign::NEGATIVE;
         }
-        std::reverse(l_mms.begin(), l_mms.end());
-
-        // Define list of right mms
-        size_t r_index = (id < indexes.size() - 1) ? indexes[id + 1] : wdc.size() - 1;
-        r_mms.clear();
-        while ((mm_id < mms.size()) && (mms[mm_id].index < r_index))
-        {
-            r_mms.push_back(mms[mm_id]);
-            ++mm_id;
-        }
-
-        zcs.emplace_back(index, static_cast<int>(id), l_mms, r_mms);
+    }
+    if (l_l_mm && l_r_mm)
+    {
+        l_ampl = std::abs(l_l_mm->value) + std::abs(l_r_mm->value);
     }
 
-    return zcs;
+//    g_l_mm = l_mms[np.argmax([abs(mm.value) for mm in self.l_mms])] if len(self.l_mms) > 0 else None
+//        self.g_r_mm = self.r_mms[np.argmax([abs(mm.value) for mm in self.r_mms])] if len(self.r_mms) > 0 else None
+//        if self.g_l_mm is not None and self.g_r_mm is not None:
+//    self.g_ampl = abs(self.g_l_mm.value) + abs(self.g_r_mm.value)
+//
+//    if self.g_l_mm.value < 0 and self.g_r_mm.value > 0:
+//    self.extremum_sign = ExtremumSign.positive
+//    else:
+//    self.extremum_sign = ExtremumSign.negative
+//
+//    self.l_l_mm = self.l_mms[0] if len(self.l_mms) > 0 else None
+//        self.l_r_mm = self.r_mms[0] if len(self.r_mms) > 0 else None
+//        if self.l_l_mm is not None and self.l_r_mm is not None:
+//    self.l_ampl = abs(self.l_l_mm.value) + abs(self.l_r_mm.value)
 }
 
 
