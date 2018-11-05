@@ -65,7 +65,7 @@ void ZeroCrossing::zc_proc()
 //    self.l_ampl = abs(self.l_l_mm.value) + abs(self.l_r_mm.value)
 }
 
-void ZeroCrossing::special(std::vector<double>& wdc, int left_index, int right_index) {
+void ZeroCrossing::special(const std::vector<double>& wdc, int left_index, int right_index) {
 // FIXME Write function
     //
 //    right_index -= 1;

@@ -8,7 +8,7 @@
 
 
 bool is_p_peak_zc_candidate_exist(const ECGLead& ecg_lead, size_t qrs_id, std::vector<ZeroCrossing> zcs) {
-    double sampling_rate = ecg_lead.sampling_rate;
+    double sampling_rate = ecg_lead.rate;
 
     size_t begin_index = get_p_begin_index(ecg_lead, qrs_id);
     size_t end_index = get_p_end_index(ecg_lead, qrs_id);
@@ -29,7 +29,7 @@ bool is_p_peak_zc_candidate_exist(const ECGLead& ecg_lead, size_t qrs_id, std::v
 
 
 size_t get_p_peak_zc_id(const ECGLead& ecg_lead, size_t qrs_id, std::vector<ZeroCrossing> zcs) {
-    double sampling_rate = ecg_lead.sampling_rate;
+    double sampling_rate = ecg_lead.rate;
 
     size_t begin_index = get_p_begin_index(ecg_lead, qrs_id);
     size_t end_index = get_p_end_index(ecg_lead, qrs_id);
@@ -77,11 +77,10 @@ size_t get_p_peak_zc_id(const ECGLead& ecg_lead, size_t qrs_id, std::vector<Zero
 
 size_t get_p_flexure_zc_id(const ECGLead& ecg_lead, size_t qrs_id, std::vector<ZeroCrossing> zcs, size_t peak_zc_id) {
     auto qrs_dels = ecg_lead.qrs_dels;
-    auto cur_qrs_dels_seq = ecg_lead.cur_qrs_dels_seq;
 
     size_t flexure_zc_id = 0;
 
-    auto rr = cur_qrs_dels_seq[qrs_id].peak_index - cur_qrs_dels_seq[qrs_id-1].peak_index;
+    auto rr = qrs_dels[qrs_id].peak_index - qrs_dels[qrs_id-1].peak_index;
 
     for (size_t zc_id = 1; zc_id <zcs.size()-1; ++zc_id) {
         if (abs(static_cast<double>(zcs[zc_id - 1].index) - static_cast<double>(zcs[zc_id].index)) < float(FLEXURE_SHIFT) * rr && \

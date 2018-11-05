@@ -209,7 +209,7 @@ std::vector<ZeroCrossing> get_zcs_in_window(const std::vector<double>& wdc,
 //    init_zcs_with_special_mms(wdc, zcs, begin_index, end_index, window);
 //
 //    return zcs;
-}
+//}
 
 
 //std::vector<ZeroCrossing> get_zcs_only_indexes(std::vector<double> wdc, size_t begin_index, size_t end_index) {
