@@ -8,57 +8,78 @@
 #include "../delineation/p/delineation.h"
 #include "../delineation/wave_delineation.h"
 #include <tuple>
-#include <vector>
 #include "../params/params.h"
 
 
 ECGLead::ECGLead(const std::string& lead_name, const std::vector<double>& data, double sample_rate) :
-    name_(lead_name), signal_(data), sampling_rate(sample_rate)
-{ }
+        name_(lead_name), signal_(data), rate(sample_rate), filter_(data), origin_(data)
+{
+}
 
 void ECGLead::cwt_filtration()
 {
-    filter = filtration::cwt_filtration(origin_);
+    this->filter_ = filtration::cwt_filtration(origin_);
 }
 
 void ECGLead::common_filtration()
 {
-    filter = filtration::common_filtration(origin_);
+    this->filter_ = filtration::common_filtration(origin_);
 }
 
 void ECGLead::adaptive_filtration()
 {
-    filter = filtration::adaptive_filtration(origin_);
+    this->filter_ = filtration::adaptive_filtration(origin_);
 }
 
 void ECGLead::dwt()
 {
-    wdc = get_wdc(filter);
+    this->wdc = get_wdc(filter_);
 }
 
 void ECGLead::calc_mms()
 {
     mms.clear();
     ids_mms.clear();
-    for (size_t id = 0; id < wdc.size(); ++id)
-    {
-        mms.push_back(get_mms(wdc[id]));
+
+    for (auto &id : wdc) {
+        mms.push_back(get_mms(id));
         auto curr_mms = mms.back();
 
-        std::vector<int> curr_ids_mms(wdc[id].size(), 0);
+        std::vector<int> curr_ids_mms(id.size(), 0);
         int curr_id = -1;
         size_t curr_index = 0;
         for (auto mm : curr_mms)
         {
             std::fill(curr_ids_mms.begin() + curr_index, curr_ids_mms.begin() + mm.index, curr_id);
             curr_index = mm.index;
+            curr_id = mm.id;
         }
         std::fill(curr_ids_mms.begin() + curr_index, curr_ids_mms.end(), curr_id);
         ids_mms.push_back(curr_ids_mms);
     }
 }
 
+void ECGLead::calc_zcs()
+{
+    zcs.clear();
+    ids_zcs.clear();
+    for (auto &id : wdc) {
+        zcs.push_back(get_zcs(wdc[id], mms[id]));
+        std::vector<ZeroCrossing>& curr_zcs = zcs.back();
 
+        std::vector<int> curr_ids_zcs(id.size(), 0);
+        int curr_id = -1;
+        size_t curr_index = 0;
+        for (const ZeroCrossing& zc : curr_zcs)
+        {
+            std::fill(curr_ids_zcs.begin() + curr_index, curr_ids_zcs.begin() + zc.index, curr_id);
+            curr_index = zc.index;
+            curr_id = static_cast<int>(zc.id);
+        }
+        std::fill(curr_ids_zcs.begin() + curr_index, curr_ids_zcs.end(), curr_id);
+        ids_zcs.push_back(curr_ids_zcs);
+    }
+}
 
 void ECGLead::qrs_del()
 {
@@ -86,7 +107,7 @@ void ECGLead::qrs_del()
             {
                 next_start += static_cast<size_t>((wdc[0].size() - next_start) * ALPHA_INC);
             }
-            
+
         }
     }
 }
@@ -97,15 +118,15 @@ void ECGLead::t_del()
 
 void ECGLead::p_del()
 {
-//    std::vector<WaveDelineation> cur_p_dels_seq;
-//    std::vector<Morphology> cur_p_morph_seq;
-//    std::tie(cur_p_dels_seq, cur_p_morph_seq) = get_p_dels(*this);
-//
-//    p_dels = cur_p_dels_seq;
-//    p_morphs = cur_p_morph_seq;
-//
-//    fib_analysis_imbalance();
-//    fib_analysis_shortage();
+    std::vector<WaveDelineation> cur_p_dels_seq = get_p_dels(*this);
+    std::vector<Morphology> cur_p_morph_seq = get_p_dels(*this);
+    //std::tie(cur_p_dels_seq, cur_p_morph_seq) = get_p_dels(*this);
+
+    this-> p_dels = cur_p_dels_seq;
+    this-> p_morphs = cur_p_morph_seq;
+
+    fib_analysis_imbalance();
+    fib_analysis_shortage();
 }
 
 void ECGLead::del_correction()
@@ -122,46 +143,4 @@ void ECGLead::init_plot_data()
 
 void ECGLead::print_del_info()
 {
-}
-
-void ECGLead::delineation() {
-    // TODO Make for qrs and p!
-
-
-    //this->cur_qrs_dels_seq = get_qrs_delineations(self, 0, len(this->wdc[0]));
-    //this->cur_t_dels_seq = get_t_delineations(self)
-    this->cur_p_dels_seq = get_p_delineations(*this);
-
-    //this->qrs_dels.append(this->cur_qrs_dels_seq)
-    //this->t_dels.append(this->cur_t_dels_seq)
-    //this->p_dels.append(this->cur_p_dels_seq)
-
-    if (this->cur_qrs_dels_seq.empty())
-        return;
-
-    size_t next_seq_start = this->cur_qrs_dels_seq[-1].offset_index;
-
-//    this->cur_qrs_dels_seq = []
-//    this->cur_t_dels_seq = []
-    //this->cur_p_dels_seq = []
-
-    while (next_seq_start < int(this->wdc[0].size() * 0.8)) {
-//        this->cur_qrs_dels_seq = get_qrs_delineations(self, next_seq_start, len(this->wdc[0]))
-//        this->cur_t_dels_seq = get_t_delineations(self)
-        this->cur_p_dels_seq = get_p_delineations(*this);
-
-        if (!this->cur_qrs_dels_seq.empty()) {
-//            this->qrs_dels.append(this->cur_qrs_dels_seq)
-//            this->t_dels.append(this->cur_t_dels_seq)
-            //this->p_dels.push_back(this->cur_p_dels_seq);
-
-            next_seq_start = this->cur_qrs_dels_seq[-1].offset_index;
-        }
-        else
-            next_seq_start += int((this->wdc[0].size() - next_seq_start) * 0.1);
-
-        this->cur_qrs_dels_seq;
-        this->cur_t_dels_seq;
-        this->cur_p_dels_seq;
-    }
 }

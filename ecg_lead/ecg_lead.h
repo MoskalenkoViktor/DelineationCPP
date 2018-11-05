@@ -63,5 +63,6 @@ public:
 private:
     std::vector<double> signal_;
     std::vector<double> origin_;
+    std::vector<double> filter_;
     std::string name_;
 };
