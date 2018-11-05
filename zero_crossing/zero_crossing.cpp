@@ -65,115 +65,164 @@ void ZeroCrossing::zc_proc()
 //    self.l_ampl = abs(self.l_l_mm.value) + abs(self.l_r_mm.value)
 }
 
-
-std::vector<ZeroCrossing> get_zcs_in_window(const std::vector<double>& wdc,
-                                            const std::vector<ZeroCrossing>& zcs, const std::vector<int>& ids_zcs,
-                                            size_t begin_index, size_t end_index)
-{
-    int begin_index_for_zc = static_cast<int>(begin_index) + 1;
-    int end_index_for_zc = static_cast<int>(end_index) - 1;
-
-    int begin_index_for_mm = static_cast<int>(begin_index);
-    int end_index_for_mm = static_cast<int>(end_index) - 1;
-
-    int begin_id = get_closest_zc_id(zcs, ids_zcs, begin_index_for_zc);
-    if (zcs[begin_id].index < begin_index_for_zc)
-    {
-        ++begin_id;
-    }
-    int end_id = get_closest_zc_id(zcs, ids_zcs, end_index_for_zc);
-    if (zcs[end_id].index >= end_index_for_zc)
-    {
-        --end_id;
-    }
-
-    std::vector<ZeroCrossing> target_zcs(zcs.begin() + begin_id, zcs.begin() + end_id + 1);
-
-    if (target_zcs.size() > 0)
-    {
-
-        ZeroCrossing& left_zc = target_zcs[0];
-        if (left_zc.l_mms.size() > 0)
-        {
-            size_t num_passed = 0;
-            while ((num_passed < left_zc.l_mms.size()) &&
-                   (left_zc.l_mms[num_passed].index >= begin_index_for_mm))
-            {
-                ++num_passed;
-            }
-            if (num_passed > 0)
-            {
-                std::vector<ModulusMaxima> tmp_mms(left_zc.l_mms.begin(), left_zc.l_mms.begin() + num_passed);
-                if (left_zc.l_mms.size() > num_passed)
-                {
-                    tmp_mms.emplace_back(begin_index_for_mm, left_zc.l_mms[num_passed].id, wdc);
-                }
-                left_zc.l_mms = tmp_mms;
-                left_zc.zc_proc();
-            }
-            else
-            {
-                ModulusMaxima first_mm(begin_index_for_mm, left_zc.l_mms[0].id, wdc);
-                left_zc.l_mms = { first_mm };
-                left_zc.zc_proc();
-            }
-        }
-
-        ZeroCrossing& right_zc = target_zcs.back();
-        if (right_zc.r_mms.size() > 0)
-        {
-            size_t num_passed = 0;
-            while ((num_passed < right_zc.r_mms.size()) &&
-                   (right_zc.r_mms[num_passed].index <= end_index_for_mm))
-            {
-                ++num_passed;
-            }
-            if (num_passed > 0)
-            {
-                std::vector<ModulusMaxima> tmp_mms(right_zc.r_mms.begin(), right_zc.r_mms.begin() + num_passed);
-                if (right_zc.r_mms.size() > num_passed)
-                {
-                    tmp_mms.emplace_back(end_index_for_mm, right_zc.r_mms[num_passed].id, wdc);
-                }
-                right_zc.r_mms = tmp_mms;
-                right_zc.zc_proc();
-            }
-            else
-            {
-                ModulusMaxima last_mm(end_index_for_mm, right_zc.r_mms.back().id, wdc);
-                right_zc.r_mms = { last_mm };
-                right_zc.zc_proc();
-            }
-        }
-    }
-
-    return target_zcs;
+void special(std::vector<double>& wdc, int left_index, int right_index) {
+// FIXME Write function
+    //
+//    right_index -= 1;
+//
+//    l_mms = [mm for mm in self.l_mms if mm.index > left_index];
+//    if len(l_mms) > 0:
+//    self.s_l_mm = l_mms[np.argmax([abs(mm.value)
+//    for
+//    mm
+//    in
+//    l_mms])]
+//    else:
+//    self.s_l_mm = None
+//    if self.s_l_mm
+//    is
+//    None:
+//    if self.index == left_index:
+//    self.s_l_mm = ModulusMaxima(left_index, self.l_mms[0].id, wdc)
+//    else:
+//    left_mm_index = left_index + np.argmax(np.abs(wdc[left_index:
+//    self.index]))
+//    self.s_l_mm = ModulusMaxima(left_mm_index, self.l_mms[0].id, wdc)
+//
+//    r_mms = [mm
+//    for
+//    mm
+//    in
+//    self.r_mms
+//    if mm.index < right_index]
+//    if len(r_mms) > 0:
+//    self.s_r_mm = r_mms[np.argmax([abs(mm.value)
+//    for
+//    mm
+//    in
+//    r_mms])]
+//    else:
+//    self.s_r_mm = None
+//    if self.s_r_mm
+//    is
+//    None:
+//    if self.index == right_index:
+//    self.s_r_mm = ModulusMaxima(right_index, self.r_mms[0].id, wdc)
+//    else:
+//    right_mm_index = self.index + np.argmax(np.abs(wdc[self.index:right_index]))
+//    self.s_r_mm = ModulusMaxima(right_mm_index, self.r_mms[0].id, wdc)
+//
+//    self.s_ampl = abs(self.s_l_mm.value) + abs(self.s_r_mm.value)
 }
 
-
-int get_closest_zc_id(const std::vector<ZeroCrossing>& zcs,
-                      const std::vector<int>& ids_zcs, size_t index)
-{
-    int id = ids_zcs[index];
-    if (id == -1)
-    {
-        return 0;
-    }
-    if (id == zcs.size() - 1)
-    {
-        return static_cast<int>(zcs.size()) - 1;
-    }
-    else
-    {
-        int first = static_cast<int>(zcs[id].index - index);
-        int second = static_cast<int>(zcs[id + 1].index - index);
-        if (std::abs(first) < std::abs(second))
-        {
-            return id;
-        }
-        else
-        {
-            return id + 1;
-        }
-    }
-}
+//std::vector<ZeroCrossing> get_zcs_in_window(const std::vector<double>& wdc,
+//                                            const std::vector<ZeroCrossing>& zcs, const std::vector<int>& ids_zcs,
+//                                            size_t begin_index, size_t end_index)
+//{
+//    int begin_index_for_zc = static_cast<int>(begin_index) + 1;
+//    int end_index_for_zc = static_cast<int>(end_index) - 1;
+//
+//    int begin_index_for_mm = static_cast<int>(begin_index);
+//    int end_index_for_mm = static_cast<int>(end_index) - 1;
+//
+//    int begin_id = get_closest_zc_id(zcs, ids_zcs, begin_index_for_zc);
+//    if (zcs[begin_id].index < begin_index_for_zc)
+//    {
+//        ++begin_id;
+//    }
+//    int end_id = get_closest_zc_id(zcs, ids_zcs, end_index_for_zc);
+//    if (zcs[end_id].index >= end_index_for_zc)
+//    {
+//        --end_id;
+//    }
+//
+//    std::vector<ZeroCrossing> target_zcs(zcs.begin() + begin_id, zcs.begin() + end_id + 1);
+//
+//    if (target_zcs.size() > 0)
+//    {
+//
+//        ZeroCrossing& left_zc = target_zcs[0];
+//        if (left_zc.l_mms.size() > 0)
+//        {
+//            size_t num_passed = 0;
+//            while ((num_passed < left_zc.l_mms.size()) &&
+//                   (left_zc.l_mms[num_passed].index >= begin_index_for_mm))
+//            {
+//                ++num_passed;
+//            }
+//            if (num_passed > 0)
+//            {
+//                std::vector<ModulusMaxima> tmp_mms(left_zc.l_mms.begin(), left_zc.l_mms.begin() + num_passed);
+//                if (left_zc.l_mms.size() > num_passed)
+//                {
+//                    tmp_mms.emplace_back(begin_index_for_mm, left_zc.l_mms[num_passed].id, wdc);
+//                }
+//                left_zc.l_mms = tmp_mms;
+//                left_zc.zc_proc();
+//            }
+//            else
+//            {
+//                ModulusMaxima first_mm(begin_index_for_mm, left_zc.l_mms[0].id, wdc);
+//                left_zc.l_mms = { first_mm };
+//                left_zc.zc_proc();
+//            }
+//        }
+//
+//        ZeroCrossing& right_zc = target_zcs.back();
+//        if (right_zc.r_mms.size() > 0)
+//        {
+//            size_t num_passed = 0;
+//            while ((num_passed < right_zc.r_mms.size()) &&
+//                   (right_zc.r_mms[num_passed].index <= end_index_for_mm))
+//            {
+//                ++num_passed;
+//            }
+//            if (num_passed > 0)
+//            {
+//                std::vector<ModulusMaxima> tmp_mms(right_zc.r_mms.begin(), right_zc.r_mms.begin() + num_passed);
+//                if (right_zc.r_mms.size() > num_passed)
+//                {
+//                    tmp_mms.emplace_back(end_index_for_mm, right_zc.r_mms[num_passed].id, wdc);
+//                }
+//                right_zc.r_mms = tmp_mms;
+//                right_zc.zc_proc();
+//            }
+//            else
+//            {
+//                ModulusMaxima last_mm(end_index_for_mm, right_zc.r_mms.back().id, wdc);
+//                right_zc.r_mms = { last_mm };
+//                right_zc.zc_proc();
+//            }
+//        }
+//    }
+//
+//    return target_zcs;
+//}
+//
+//
+//int get_closest_zc_id(const std::vector<ZeroCrossing>& zcs,
+//                      const std::vector<int>& ids_zcs, size_t index)
+//{
+//    int id = ids_zcs[index];
+//    if (id == -1)
+//    {
+//        return 0;
+//    }
+//    if (id == zcs.size() - 1)
+//    {
+//        return static_cast<int>(zcs.size()) - 1;
+//    }
+//    else
+//    {
+//        int first = static_cast<int>(zcs[id].index - index);
+//        int second = static_cast<int>(zcs[id + 1].index - index);
+//        if (std::abs(first) < std::abs(second))
+//        {
+//            return id;
+//        }
+//        else
+//        {
+//            return id + 1;
+//        }
+//    }
+//}
