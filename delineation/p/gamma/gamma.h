@@ -3,7 +3,7 @@
 #include "../routines.h"
 
 Morphology get_p_morph(const ECGLead& ecg_lead, size_t del_id, const WaveDelineation& delineation) {
-    int main_scale_id = get_p_wdc_scale_id(ecg_lead);
+    auto main_scale_id = get_p_wdc_scale_id(ecg_lead);
     auto aux_scale_id = int(BETA_SCALE);
     PMorphologyData p_morph_data_main = PMorphologyData(ecg_lead, delineation, main_scale_id);
     PMorphologyData p_morph_data_aux = PMorphologyData(ecg_lead, delineation, aux_scale_id);
