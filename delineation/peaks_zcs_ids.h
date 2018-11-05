@@ -2,7 +2,9 @@
 
 #include "wave_delineation.h"
 #include "../params/params.h"
+#include "../zero_crossing/zero_crossing.h"
 
+//class ZeroCrossing;
 
 class PeakZCsIds {
 public:

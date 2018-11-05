@@ -5,7 +5,7 @@
 ModulusMaxima::ModulusMaxima(size_t index, int id, const std::vector<double>& wdc)
 {
     this->index = index;
-    //this->id = id;
+    this->id = id;
     this->value = wdc[index];
 
     if (index == 0)
@@ -42,8 +42,7 @@ std::vector<ModulusMaxima> get_mms(const std::vector<double>& wdc)
 }
 
 
-ModulusMaxima get_left_mm(const std::vector<ModulusMaxima>& mms,
-    const std::vector<int>& ids_mms, size_t index)
+ModulusMaxima get_left_mm(const std::vector<ModulusMaxima>& mms, const std::vector<int>& ids_mms, size_t index)
 {
     return mms[get_closest_mm_id_left(mms, ids_mms, index)];
 }
