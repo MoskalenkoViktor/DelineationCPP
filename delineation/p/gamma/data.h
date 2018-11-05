@@ -11,7 +11,7 @@
 class PMorphologyData {
 public:
     PMorphologyData(const ECGLead& ecg_lead,
-        const WaveDelineation& delineation, int target_scale_id);
+        WaveDelineation& delineation, int target_scale_id);
 
     int correct = -1;
     ExtremumSign t_sign;
@@ -21,8 +21,8 @@ public:
     size_t length = 0;
     int current_dist = 0;
     int scale_id;
-    const std::vector<double>* wdc;
-    std::vector<std::vector<ZeroCrossing>> zcs;
+    std::vector<double> wdc;
+    std::vector<ZeroCrossing> zcs;
     std::vector<size_t> dels_zcs_ids;
     std::vector<int> peak_zcs_ids;
     size_t peak_zc_id = 0;

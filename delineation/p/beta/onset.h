@@ -10,7 +10,7 @@
 #include "../delineation.h"
 #include "../zcs.h"
 
-void define_p_onset_index(const ECGLead& ecg_lead, WaveDelineation delineation, ZeroCrossing zcs, size_t left_peak_zc_id, size_t begin_index) {
+void define_p_onset_index(const ECGLead& ecg_lead, WaveDelineation& delineation, std::vector<ZeroCrossing>& zcs, size_t left_peak_zc_id, size_t begin_index) {
 
     size_t searching_onset_left_border_index;
 

@@ -10,8 +10,7 @@
 #include <cmath>
 
 
-PMorphologyData::PMorphologyData(const ECGLead& ecg_lead,
-                                     const WaveDelineation& delineation, int target_scale_id) {
+PMorphologyData::PMorphologyData(const ECGLead& ecg_lead, WaveDelineation& delineation, int target_scale_id) {
     const std::vector<std::vector<double>>& wdc_all_scales = ecg_lead.wdc;
 
     double rate = ecg_lead.rate;
@@ -26,7 +25,7 @@ PMorphologyData::PMorphologyData(const ECGLead& ecg_lead,
     size_t end_index = offset_index;
 
     std::vector<double> wdc = wdc_all_scales[target_scale_id];
-    std::vector<ZeroCrossing> zcs = get_zcs_with_global_mms(wdc, begin_index, end_index);
+    std::vector<ZeroCrossing> zcs = get_zcs_in_window(ecg_lead.wdc[target_scale_id], ecg_lead.zcs[target_scale_id], ecg_lead.ids_zcs[target_scale_id], begin_index, end_index);
 
     if (zcs.size() > 0) {
         std::vector<size_t> dels_zcs_ids;
@@ -40,10 +39,10 @@ PMorphologyData::PMorphologyData(const ECGLead& ecg_lead,
                 peak_zc_id = zc_id;
             }
         }
-        if (zcs[peak_zc_id].extremum_sign == 1)
-            t_sign = 1;
+        if (zcs[peak_zc_id].extremum_sign == ExtremumSign::POSITIVE)
+            t_sign = ExtremumSign ::POSITIVE;
         else
-            t_sign = -1;
+            t_sign = ExtremumSign ::NEGATIVE;
 
         this->begin_index = begin_index;
         this->end_index = end_index;
