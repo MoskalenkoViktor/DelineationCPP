@@ -6,7 +6,7 @@
 
 void onset_processing(const ECGLead& ecg_lead, WaveDelineation& delineation, PMorphologyData& morphology_data, std::vector<Point> points) {
     size_t onset_index = delineation.onset_index;
-    auto onset_value = ecg_lead.filter[onset_index];
+    auto onset_value = ecg_lead.filter_[onset_index];
     auto onset_sign = WaveSign::NONE;
     Point onset_point = Point(PointName::P_ONSET, onset_index, onset_value, onset_sign);
     points.insert(points.begin(), onset_point);

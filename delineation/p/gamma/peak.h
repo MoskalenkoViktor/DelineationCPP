@@ -8,15 +8,16 @@
 void peak_processing(const ECGLead& ecg_lead, WaveDelineation& delineation, PMorphologyData& morphology_data, std::vector<Point> points) {
     int direction = 0;
     WaveSign p_sign;
-    ZeroCrossing zcs = morphology_data.zcs;
+    std::vector<ZeroCrossing> zcs = morphology_data.zcs;
     size_t peak_zc_id = morphology_data.peak_zc_id;
 
     ExtremumSign p_zc_sign = morphology_data.t_sign;
     size_t p_index = zcs[peak_zc_id].index;
-    auto p_value = ecg_lead.filter[p_index];
+    auto p_value = ecg_lead.filter_
+            [p_index];
     if (p_zc_sign == ExtremumSign::POSITIVE)
         p_sign = WaveSign::POSITIVE;
-    else:
+    else
         p_sign = WaveSign::NEGATIVE;
     Point p_point = Point(PointName::P_PEAK, p_index, p_value, p_sign);
     if (direction < 0)

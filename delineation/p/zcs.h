@@ -11,7 +11,7 @@
 #include "../../zero_crossing/zero_crossing.h"
 #include "routines.h"
 
-std::vector<ZeroCrossing> get_p_zcs(ECGLead& ecg_lead, size_t qrs_id, int window) {
+std::vector<ZeroCrossing> get_p_zcs(const ECGLead& ecg_lead, size_t qrs_id, int window) {
 
     int wdc_scale_id = get_p_wdc_scale_id(ecg_lead);
 

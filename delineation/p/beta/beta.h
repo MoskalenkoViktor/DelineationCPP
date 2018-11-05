@@ -15,7 +15,7 @@
 #include "../../../params/params.h"
 
 
-WaveDelineation get_p_del(const ECGLead& ecg_lead, const size_t qrs_id) {
+WaveDelineation get_p_del(const ECGLead& ecg_lead, size_t qrs_id) {
     WaveDelineation delineation;
 
     if (ecg_lead.qrs_dels[qrs_id].specification == WaveSpecification::EXTRA) {
@@ -70,7 +70,7 @@ WaveDelineation get_p_del(const ECGLead& ecg_lead, const size_t qrs_id) {
     ZeroCrossing peak_zc = zcs[peak_zc_id];
     size_t peak_index = peak_zc.index;
     delineation.peak_index = peak_index;
-    delineation.specification = WaveSpecification.exist;
+    delineation.specification = WaveSpecification::EXIST;
 
     auto peak_zcs_ids = PeakZCsIds(peak_zc_id, peak_zc_id, peak_zc_id);
 

@@ -5,7 +5,7 @@
 #pragma once
 
 #include "../../morfology_point.h"
-#include "../routines.h
+#include "../routines.h"
 #include "data.h"
 #include "../../../params/params.h"
 #include "points.h"
@@ -16,8 +16,7 @@ size_t p_zc_id = 0;
 size_t num_zcs_main = 0;
 std::vector<Point> points;
 
-Morphology get_p_morph(const ECGLead& ecg_lead, int del_id,
-                              const WaveDelineation& delineation)
+Morphology get_p_morph(const ECGLead& ecg_lead, int del_id, WaveDelineation& delineation)
 {
 
     int main_scale_id = get_p_wdc_scale_id(ecg_lead);
@@ -26,16 +25,17 @@ Morphology get_p_morph(const ECGLead& ecg_lead, int del_id,
     PMorphologyData p_morph_data_main = PMorphologyData(ecg_lead, delineation, main_scale_id);
     PMorphologyData p_morph_data_aux = PMorphologyData(ecg_lead, delineation, aux_scale_id);
 
-    if (hasattr(p_morph_data_main, "zcs"))
-        num_zcs_main = p_morph_data_main.zcs.size();
-    else
-        num_zcs_main = 0;
+    // FIXME rewrite hasattr method
+//    if (hasattr(p_morph_data_main, "zcs"))
+//        num_zcs_main = p_morph_data_main.zcs.size();
+//    else
+//        num_zcs_main = 0;
 
     Degree degree = Degree::UNKNOWN;
 
 // In the case of adequate data
     if (p_morph_data_aux.correct == 1) {
-        ZeroCrossing zcs = p_morph_data_aux.zcs;
+        std::vector<ZeroCrossing> zcs = p_morph_data_aux.zcs;
         size_t p_zc_id = p_morph_data_aux.peak_zc_id;
 
 // Check: how many big zcs in delineation

@@ -222,7 +222,7 @@ std::tuple<bool, int, std::vector<Point>> left_qrs_morphology(const ECGLead& ecg
                         {
                             is_zcs_valid = false;
                         }
-                        if (std::abs(zcs[zc_id - 1].g_l_mm->value) < mm_ampl)
+                        if (std::abs(zcs[zc_id - 1].g_l_mm.value) < mm_ampl)
                         {
                             is_zcs_valid = false;
                         }
@@ -255,7 +255,7 @@ std::tuple<bool, int, std::vector<Point>> left_qrs_morphology(const ECGLead& ecg
         {
             ExtremumSign q_zc_sign = morph_data.q_signs[scale_id];
             size_t q_index = zcs[q_zc_id].index;
-            double q_value = ecg_lead.filter[q_index];
+            double q_value = ecg_lead.filter_[q_index];
             WaveSign q_sign;
             if (q_zc_sign == ExtremumSign::POSITIVE)
             {
@@ -270,7 +270,7 @@ std::tuple<bool, int, std::vector<Point>> left_qrs_morphology(const ECGLead& ecg
         else
         {
             size_t p_index = zcs[xtd_point_zc_id].index;
-            double p_value = ecg_lead.filter[p_index];
+            double p_value = ecg_lead.filter_[p_index];
             WaveSign p_sign;
             if (zcs[xtd_point_zc_id].extremum_sign == ExtremumSign::NEGATIVE)
             {

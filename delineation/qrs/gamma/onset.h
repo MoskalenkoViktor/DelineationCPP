@@ -64,7 +64,7 @@ void onset_processing(int first_zc_id, const ECGLead& ecg_lead, WaveDelineation*
                     qrs_onset_index = zcs[onset_zc_id].index;
                     is_onset_found = true;
                 }
-                if (std::abs(zcs[onset_zc_id].g_r_mm->value) > mm_ampl)
+                if (std::abs(zcs[onset_zc_id].g_r_mm.value) > mm_ampl)
                 {
                     qrs_onset_index = zcs[onset_zc_id].index;
                     is_onset_found = true;

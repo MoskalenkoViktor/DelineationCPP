@@ -32,19 +32,19 @@ std::vector<Point> points_processing_trivial(const ECGLead& ecg_lead, WaveDeline
 
     PointName onset_name = PointName::T_ONSET;
     size_t onset_index = delineation.onset_index;
-    auto onset_value = ecg_lead.filter[onset_index];
+    auto onset_value = ecg_lead.filter_[onset_index];
     WaveSign onset_sign = WaveSign::NONE;
     Point onset = Point(onset_name, onset_index, onset_value, onset_sign);
 
     PointName offset_name = PointName::T_OFFSET;
     size_t offset_index = delineation.offset_index;
-    auto offset_value = ecg_lead.filter[offset_index];
+    auto offset_value = ecg_lead.filter_[offset_index];
     WaveSign offset_sign = WaveSign::NONE;
     Point offset = Point(offset_name, offset_index, offset_value, offset_sign);
 
     PointName peak_name = PointName::T_PEAK;
     size_t peak_index = delineation.peak_index;
-    auto peak_value = ecg_lead.filter[peak_index];
+    auto peak_value = ecg_lead.filter_[peak_index];
 
 // if we have Line[{x1, y1}, {x2, y2}] and Point {xA, yA}
 // first vector v1 = {x2 - x1, y2 - y1}
