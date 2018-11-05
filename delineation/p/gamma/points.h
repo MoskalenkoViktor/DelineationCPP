@@ -5,6 +5,7 @@
 
 #include "../../morfology_point.h"
 #include "../../../ecg_lead/ecg_lead.h"
+#include "data.h"
 
 std::vector<Point> points_processing(const ECGLead& ecg_lead, const WaveDelineation& delineation, const PMorphologyData& morphology_data) {
 
