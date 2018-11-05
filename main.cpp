@@ -47,7 +47,7 @@ int main()
 
     ECGLead lead("lead_i", {}, 500.0);
     lead.wdc = wdc;
-    lead.filter = filter;
+    lead.filter_ = filter;
 
     clock_t begin = clock();
     for (size_t i = 0; i < 12; ++i)

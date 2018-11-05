@@ -39,6 +39,7 @@ public:
 
     std::vector<std::vector<double>> wdc;
     double rate;
+    std::vector<double> filter_;
 
     std::vector<std::vector<ZeroCrossing>> zcs;
     std::vector<std::vector<int>> ids_zcs;
@@ -63,6 +64,5 @@ public:
 private:
     std::vector<double> signal_;
     std::vector<double> origin_;
-    std::vector<double> filter_;
     std::string name_;
 };
