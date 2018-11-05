@@ -2,6 +2,7 @@
 #include "../delineation.h"
 #include "../../../zero_crossing/zero_crossing.h"
 #include "../../../params/params.h"
+#include "../../../zero_crossing/routines.h"
 
 
 QRSMorphologyData::QRSMorphologyData(const ECGLead& ecg_lead, 

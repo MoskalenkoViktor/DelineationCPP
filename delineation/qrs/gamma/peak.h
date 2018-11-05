@@ -11,7 +11,7 @@ void r_processing(int r_zc_id, const ECGLead& ecg_lead, WaveDelineation* delinea
     ExtremumSign r_zc_sign = qrs_morphology_data.r_signs[scale_id];
 
     size_t r_index = zcs[r_zc_id].index;
-    double r_value = ecg_lead.filter[r_index];
+    double r_value = ecg_lead.filter_[r_index];
     WaveSign r_sign = (r_zc_sign == ExtremumSign::POSITIVE) ?
         WaveSign::POSITIVE : WaveSign::NEGATIVE;
 

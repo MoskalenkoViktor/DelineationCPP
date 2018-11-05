@@ -9,6 +9,7 @@
 #include "../delineation/wave_delineation.h"
 #include <tuple>
 #include "../params/params.h"
+#include "../delineation/p/fibrillation/fibrillation.h"
 
 
 ECGLead::ECGLead(const std::string& lead_name, const std::vector<double>& data, double sample_rate) :
@@ -63,11 +64,11 @@ void ECGLead::calc_zcs()
 {
     zcs.clear();
     ids_zcs.clear();
-    for (auto &id : wdc) {
-        zcs.push_back(get_zcs(wdc[id], mms[id]));
-        std::vector<ZeroCrossing>& curr_zcs = zcs.back();
+    for (size_t id = 0; id <= wdc.size(); ++id) {
+        std::vector<ZeroCrossing> curr_zcs = get_zcs(this->wdc[id], this->mms[id]);
+        zcs.push_back(curr_zcs);
 
-        std::vector<int> curr_ids_zcs(id.size(), 0);
+        std::vector<int> curr_ids_zcs(id, 0);
         int curr_id = -1;
         size_t curr_index = 0;
         for (const ZeroCrossing& zc : curr_zcs)
@@ -116,17 +117,18 @@ void ECGLead::t_del()
 {
 }
 
-void ECGLead::p_del()
-{
-    std::vector<WaveDelineation> cur_p_dels_seq = get_p_dels(*this);
-    std::vector<Morphology> cur_p_morph_seq = get_p_dels(*this);
-    //std::tie(cur_p_dels_seq, cur_p_morph_seq) = get_p_dels(*this);
+void ECGLead::p_del() {
+//    std::vector<WaveDelineation> cur_p_dels_seq = get_p_dels(*this);
+//    std::vector<Morphology> cur_p_morph_seq = get_p_dels(*this);
+    std::vector<WaveDelineation> cur_p_dels_seq;
+    std::vector<Morphology> cur_p_morph_seq;
+    std::tie(cur_p_dels_seq, cur_p_morph_seq) = get_p_dels(*this);
 
     this-> p_dels = cur_p_dels_seq;
     this-> p_morphs = cur_p_morph_seq;
 
-    fib_analysis_imbalance();
-    fib_analysis_shortage();
+    fib_analysis_imbalance(*this);
+    fib_analysis_shortage(*this);
 }
 
 void ECGLead::del_correction()

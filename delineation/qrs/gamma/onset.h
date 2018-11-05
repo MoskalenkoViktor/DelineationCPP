@@ -100,7 +100,7 @@ void onset_processing(int first_zc_id, const ECGLead& ecg_lead, WaveDelineation*
             {
                 if (mms_ids_incorrect.size() > 0)
                 {
-                    if (std::abs(zcs[first_zc_id].g_l_mm->value) > mm_ampl)
+                    if (std::abs(zcs[first_zc_id].g_l_mm.value) > mm_ampl)
                     {
                         int mm_id_incorrect = mms_ids_incorrect[0];
                         size_t qrs_onset_index = mms[mm_id_incorrect].index;
@@ -143,7 +143,7 @@ void onset_processing(int first_zc_id, const ECGLead& ecg_lead, WaveDelineation*
     }
 
     // Including onset to morphology
-    double qrs_onset_value = ecg_lead.filter[qrs_onset_index];
+    double qrs_onset_value = ecg_lead.filter_[qrs_onset_index];
     WaveSign qrs_onset_sign = WaveSign::NONE;
     Point qrs_onset_point = Point(PointName::QRS_ONSET, qrs_onset_index, qrs_onset_value, qrs_onset_sign);
     if (direction < 0)
