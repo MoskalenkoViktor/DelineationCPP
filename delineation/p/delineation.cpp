@@ -5,6 +5,7 @@
 #include "../wave_delineation.h"
 #include "beta/beta.h"
 #include "gamma/gamma.h"
+#include "fibrillation/fibrillation.h"
 
 std::pair<std::vector<WaveDelineation>, std::vector<Morphology>> get_p_dels(const ECGLead& ecg_lead)
 {

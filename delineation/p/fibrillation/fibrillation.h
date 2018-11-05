@@ -45,7 +45,7 @@ void fib_analysis_shortage(const ECGLead& ecg_lead) {
     auto min_num_dels = int(target * part);
 
 //    if (num_p_dels < min_num_dels) {
-//        ecg_lead.p_dels = [];
-//        ecg_lead.p_morphs = [];
+//        ecg_lead.p_dels.clear();
+//        ecg_lead.p_morphs.clear();
 //    }
 }
