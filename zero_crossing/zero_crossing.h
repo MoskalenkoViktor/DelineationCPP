@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "../modulus_maxima/modulus_maxima.h"
+#include "../modulus_maxima/routines.h"
 #include <memory>
 
 

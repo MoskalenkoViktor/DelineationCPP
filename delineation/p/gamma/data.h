@@ -1,9 +1,7 @@
 #pragma once
 
-#include "../../wave_delineation.h"
 #include "../../../zero_crossing/zero_crossing.h"
 #include "../../../zero_crossing/routines.h"
-#include "../delineation.h"
 #include "../routines.h"
 #include "../../../params/params.h"
 

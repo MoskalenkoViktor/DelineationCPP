@@ -2,15 +2,15 @@
 #include <vector>
 #include <string>
 
-#include "../modulus_maxima/modulus_maxima.h"
-#include "../zero_crossing/zero_crossing.h"
-#include "../delineation/wave_delineation.h"
-//#include "../delineation/qrs/delineation.h"
-//#include "../filtration/cwt_filtration.h"
-//#include "../filtration/common_filtration.h"
-//#include "../delineation/p/delineation.h"
-//#include "../discrete_wavelet_transform/wdc.h"
-//#include "../zero_crossing/zero_crossing.h"
+
+#include "../delineation/qrs/delineation.h"
+#include "../filtration/cwt_filtration.h"
+#include "../filtration/common_filtration.h"
+#include "../filtration/adaptive_filtration.h"
+#include "../delineation/p/delineation.h"
+#include "../discrete_wavelet_transform/wdc.h"
+
+
 
 // TODO Release exception class InvalidECGLead
 

@@ -7,6 +7,7 @@
 #include "../../params/params.h"
 #include "../../modulus_maxima/routines.h"
 #include "../../threshold_crossings/routines.h"
+#include "../../ecg_lead/ecg_lead.h"
 
 // TODO Make Exception class
 

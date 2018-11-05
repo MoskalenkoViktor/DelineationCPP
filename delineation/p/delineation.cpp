@@ -24,4 +24,4 @@ std::pair<std::vector<WaveDelineation>, std::vector<Morphology>> get_p_dels(cons
         }
     }
     return{ dels, morphs };
-};
+}

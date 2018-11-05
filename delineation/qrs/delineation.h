@@ -1,6 +1,7 @@
 #pragma once
-#include "../../ecg_lead/ecg_lead.h"
-#include "../wave_delineation.h"
+
+#include "beta/beta.h"
+#include "gamma/gamma.h"
 
 std::pair<std::vector<WaveDelineation>, std::vector<Morphology>> get_qrs_dels(ECGLead& ecg_lead, size_t begin_index, size_t end_index);
 size_t get_qrs_wdc_scale_id(const ECGLead& ecg_lead);

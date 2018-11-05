@@ -8,15 +8,10 @@
 
 #include <functional>
 #include <numeric>
-#include "offset.h"
-#include "peak.h"
-#include "onset.h"
-#include "../peaks_zcs_ids.h"
-#include "zcs.h"
-#include "routines.h"
-#include "../../params/params.h"
-
-#include "../../zero_crossing/zero_crossing.h"
+#include "gamma/gamma.h"
+#include "beta/beta.h"
+#include "fibrillation/fibrillation.h"
+#include "../wave_delineation.h"
 
 std::pair<std::vector<WaveDelineation>, std::vector<Morphology>> get_p_dels(
         const ECGLead& ecg_lead);

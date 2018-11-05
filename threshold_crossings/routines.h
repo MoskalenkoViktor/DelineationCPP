@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include "../modulus_maxima/modulus_maxima.h"
+#include "../modulus_maxima/routines.h"
 #include <cmath>
 
 

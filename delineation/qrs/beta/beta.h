@@ -1,6 +1,5 @@
 #pragma once
 #include "../../wave_delineation.h"
-#include "../../../ecg_lead/ecg_lead.h"
 #include "peak.h"
 #include "onset.h"
 #include "offset.h"
