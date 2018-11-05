@@ -4,7 +4,7 @@ set(_src_root_path "${DelineationCPP_SOURCE_DIR}")
 set(CMAKE_CXX_STANDARD 11)
 
 file(GLOB_RECURSE ALL_SOURCE LIST_DIRECTORIES false "*.h" "*.cpp")
-add_executable(DelineationCPP ${ALL_SOURCE})
+add_executable(DelineationCPP ${ALL_SOURCE} delineation/p/delineation.h delineation/p/delineation.cpp delineation/p/beta/beta.h delineation/p/gamma/gamma.h delineation/p/fibrillation/fibrillation.h delineation/p/routines.h)
 
 foreach(_source IN ITEMS ${ALL_SOURCE})
     get_filename_component(_source_path "${_source}" PATH)
