@@ -46,5 +46,5 @@ size_t get_closest_mm_id_right(const std::vector<ModulusMaxima>& mms,
     const std::vector<int>& ids_mms, size_t index);
 
 
-ModulusMaxima find_left_mm(size_t index, const std::vector<double>& wdc);
-ModulusMaxima find_right_mm(size_t index, const std::vector<double>& wdc);
+//ModulusMaxima find_left_mm(size_t index, const std::vector<double>& wdc);
+//ModulusMaxima find_right_mm(size_t index, const std::vector<double>& wdc);
