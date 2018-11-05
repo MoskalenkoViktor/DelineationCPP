@@ -7,6 +7,7 @@
 #include <cmath>
 #include "../../../params/params.h"
 #include "../../wave_delineation.h"
+#include "../../peaks_zcs_ids.h"
 //#include "../../peaks_zcs_ids.h"
 
 size_t get_p_flexure_zc_id(const ECGLead& ecg_lead, size_t qrs_id, std::vector<ZeroCrossing>& zcs, size_t peak_zc_id) {
