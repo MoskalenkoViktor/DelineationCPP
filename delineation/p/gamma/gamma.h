@@ -5,6 +5,9 @@
 #include "points.h"
 
 Morphology get_p_morph(const ECGLead& ecg_lead, size_t del_id, const WaveDelineation& delineation) {
+
+    std::vector<Point> points;
+
     auto main_scale_id = get_p_wdc_scale_id(ecg_lead);
     auto aux_scale_id = int(BETA_SCALE);
     PMorphologyData p_morph_data_main = PMorphologyData(ecg_lead, delineation, main_scale_id);
@@ -46,14 +49,14 @@ Morphology get_p_morph(const ECGLead& ecg_lead, size_t del_id, const WaveDelinea
                     degree = Degree::UNKNOWN;
 
 //Getting points
-        auto points = points_processing(ecg_lead, delineation, p_morph_data_aux);
+        points = points_processing(ecg_lead, delineation, p_morph_data_aux);
     }
     else
 // Getting points
         if (p_morph_data_main.correct)
-            auto points = points_processing(ecg_lead, delineation, p_morph_data_main);
+            points = points_processing(ecg_lead, delineation, p_morph_data_main);
         else
-            auto points = points_processing_trivial(ecg_lead, delineation);
+            points = points_processing_trivial(ecg_lead, delineation);
 
     std::vector<int> branch_id;
     branch_id.push_back(0);
