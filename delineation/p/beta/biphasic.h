@@ -7,7 +7,7 @@
 #include "../../wave_delineation.h"
 #include "../../../params/params.h"
 
-void check_left_biphasic_p(triplet, const ECGLead& ecg_lead, std::vector<ZeroCrossing> zcs, WaveDelineation delineation) {
+void check_left_biphasic_p(PeakZCsIds& triplet, const ECGLead& ecg_lead, std::vector<ZeroCrossing> zcs, WaveDelineation delineation) {
     size_t left_peak_zc_id = triplet.left_zc_id;
     ZeroCrossing left_peak_zc = zcs[left_peak_zc_id];
 

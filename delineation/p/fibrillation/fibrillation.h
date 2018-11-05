@@ -10,7 +10,7 @@
 
 void fib_analysis_imbalance(const ECGLead& ecg_lead) {
 
-    std::vector<double> signal = ecg_lead.filter;
+    std::vector<double> signal = ecg_lead.filter_;
 
     std::vector<WaveDelineation> p_dels = ecg_lead.p_dels;
     std::vector<Morphology> p_morphs = ecg_lead.p_morphs;
