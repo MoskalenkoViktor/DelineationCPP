@@ -40,6 +40,7 @@ public:
     double mm_amplitude = 0.0;
 
     void zc_proc();
+    void special(std::vector<double>& wdc, int left_index, int right_index);
 
 // DEPRECATED:
 //    std::vector<double> wdc_tmp;

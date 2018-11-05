@@ -22,23 +22,27 @@ std::vector<ZeroCrossing> get_p_zcs(const ECGLead& ecg_lead, size_t qrs_id, int 
 
     if (zcs.size() > 0)
         if (zcs.size() == 1)
-            zcs[0].special(ecg_lead.wdc[wdc_scale_id], std::max(begin_index, zcs[0].index - window), std::min(end_index, zcs[0].index + window));
+            zcs[0].special(ecg_lead.wdc[wdc_scale_id], static_cast<int>(std::max(begin_index, zcs[0].index - window)), static_cast<int>(std::min(end_index, zcs[0].index + window)));
         else
             if (zcs.size() == 2) {
-                zcs[0].special(ecg_lead.wdc[wdc_scale_id], std::max(begin_index, zcs[0].index - window),
-                               std::min(zcs[1].index, zcs[0].index + window));
-                zcs[-1].special(ecg_lead.wdc[wdc_scale_id], std::max(zcs[-2].index, zcs[-1].index - window),
-                                std::min(end_index, zcs[-1].index + window));
+                zcs[0].special(ecg_lead.wdc[wdc_scale_id], static_cast<int>(std::max(begin_index, zcs[0].index - window)),
+                               static_cast<int>(std::min(zcs[1].index, zcs[0].index + window)));
+                zcs[-1].special(ecg_lead.wdc[wdc_scale_id], static_cast<int>(std::max(zcs[-2].index, zcs[-1].index - window)),
+                                static_cast<int>(std::min(end_index, zcs[-1].index + window)));
             }
-            else
-                zcs[0].special(ecg_lead.wdc[wdc_scale_id], std::max(begin_index, zcs[0].index - window), std::min(zcs[1].index, zcs[0].index + window));
+            else {
+                zcs[0].special(ecg_lead.wdc[wdc_scale_id],
+                               static_cast<int>(std::max(begin_index, zcs[0].index - window)),
+                               static_cast<int>(std::min(zcs[1].index, zcs[0].index + window)));
 
-    for zc_id in range(1, len(zcs) - 1):
-    zcs[zc_id].special(ecg_lead.wdc[wdc_scale_id], max(zcs[zc_id - 1].index, zcs[zc_id].index - window), min(zcs[zc_id + 1].index, zcs[zc_id].index + window))
+                for (size_t zc_id = 1; zc_id < zcs.size()-1; ++zc_id)
+                    zcs[zc_id].special(ecg_lead.wdc[wdc_scale_id], static_cast<int>(std::max(zcs[zc_id - 1].index, zcs[zc_id].index - window)),
+                                       static_cast<int>(std::min(zcs[zc_id + 1].index, zcs[zc_id].index + window)));
 
-    zcs[-1].special(ecg_lead.wdc[wdc_scale_id], max(zcs[-2].index, zcs[-1].index - window), min(end_index, zcs[-1].index + window))
-
-    return zcs
+                zcs[-1].special(ecg_lead.wdc[wdc_scale_id], static_cast<int>(std::max(zcs[-2].index, zcs[-1].index - window)),
+                                static_cast<int>(std::min(end_index, zcs[-1].index + window)));
+            }
+    return zcs;
 }
 
 
