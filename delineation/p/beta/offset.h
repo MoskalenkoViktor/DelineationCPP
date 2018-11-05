@@ -14,7 +14,7 @@
 #include "../zcs.h"
 
 
-void define_p_offset_index(const ECGLead& ecg_lead, WaveDelineation delineation, ZeroCrossing zcs, size_t right_peak_zc_id, size_t end_index) {
+void define_p_offset_index(const ECGLead& ecg_lead, WaveDelineation delineation, std::vector<ZeroCrossing> zcs, size_t right_peak_zc_id, size_t end_index) {
 
     size_t searching_offset_right_border_index;
 
