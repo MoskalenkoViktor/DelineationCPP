@@ -42,6 +42,9 @@ public:
     std::vector<WaveDelineation> qrs_dels;
     std::vector<Morphology> qrs_morphs;
 
+    std::vector<WaveDelineation> p_dels;
+    std::vector<Morphology> p_morphs;
+
 private:
     std::vector<double> signal_;
     std::vector<double> origin_;
