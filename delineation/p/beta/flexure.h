@@ -36,8 +36,8 @@ int get_p_flexure_zc_id(const ECGLead& ecg_lead, size_t qrs_id, std::vector<Zero
     size_t rr = qrs_dels[qrs_id].peak_index - qrs_dels[qrs_id - 1].peak_index;
 
     for (int zc_id = 1; zc_id<zcs.size()-1; zc_id++) {
-        if (std::abs(zcs[zc_id - 1].index - zcs[zc_id].index) < float(ALPHA_FLEX_SHIFT) * rr \
- && abs(zcs[zc_id + 1].index - zcs[zc_id].index) < float(ALPHA_FLEX_SHIFT) * rr \
+        if (abs(static_cast<int>(zcs[zc_id - 1].index - zcs[zc_id].index)) < float(ALPHA_FLEX_SHIFT) * rr \
+ && abs(static_cast<int>(zcs[zc_id + 1].index - zcs[zc_id].index)) < float(ALPHA_FLEX_SHIFT) * rr \
  && zcs[zc_id].mm_amplitude < float(ALPHA_FLEX_AMPL_NGBR) * zcs[zc_id - 1].mm_amplitude \
  && zcs[zc_id].mm_amplitude < float(ALPHA_FLEX_AMPL_NGBR) * zcs[zc_id + 1].mm_amplitude\
  && zcs[zc_id - 1].mm_amplitude > float(ALPHA_FLEX_AMPL_OLD_ZC) * zcs[peak_zc_id].mm_amplitude\
