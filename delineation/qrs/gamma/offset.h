@@ -64,7 +64,7 @@ void offset_processing(int last_zc_id, const ECGLead& ecg_lead, WaveDelineation*
                     qrs_offset_index = zcs[offset_zc_id].index;
                     is_offset_found = true;
                 }
-                if (std::abs(zcs[offset_zc_id].g_l_mm->value) > mm_ampl)
+                if (std::abs(zcs[offset_zc_id].g_l_mm.value) > mm_ampl)
                 {
                     qrs_offset_index = zcs[offset_zc_id].index;
                     is_offset_found = true;
@@ -100,7 +100,7 @@ void offset_processing(int last_zc_id, const ECGLead& ecg_lead, WaveDelineation*
             {
                 if (mms_ids_incorrect.size() > 0)
                 {
-                    if (std::abs(zcs[last_zc_id].g_r_mm->value) > mm_ampl)
+                    if (std::abs(zcs[last_zc_id].g_r_mm.value) > mm_ampl)
                     {
                         int mm_id_incorrect = mms_ids_incorrect.back();
                         size_t qrs_offset_index = mms[mm_id_incorrect].index;
@@ -143,7 +143,7 @@ void offset_processing(int last_zc_id, const ECGLead& ecg_lead, WaveDelineation*
     }
 
     // Including onset to morphology
-    double qrs_offset_value = ecg_lead.filter[qrs_offset_index];
+    double qrs_offset_value = ecg_lead.filter_[qrs_offset_index];
     WaveSign qrs_offset_sign = WaveSign::NONE;
     Point qrs_offset_point = Point(PointName::QRS_OFFSET, qrs_offset_index, qrs_offset_value, qrs_offset_sign);
     if (direction < 0)

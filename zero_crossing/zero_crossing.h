@@ -25,16 +25,18 @@ public:
     std::vector<ModulusMaxima> l_mms;
     std::vector<ModulusMaxima> r_mms;
 
-    ModulusMaxima g_l_mm;
-    ModulusMaxima g_r_mm;
+    std::vector<double> tmp_wdc;
+
+    std::shared_ptr<ModulusMaxima> g_l_mm;
+    ModulusMaxima g_r_mm = ModulusMaxima(0,0,tmp_wdc);
     double g_ampl = 0;
 
-    ModulusMaxima l_l_mm;
-    ModulusMaxima l_r_mm;
+    ModulusMaxima l_l_mm = ModulusMaxima(0,0,tmp_wdc);;
+    ModulusMaxima l_r_mm = ModulusMaxima(0,0,tmp_wdc);;
     double l_ampl = 0;
 
-    ModulusMaxima s_l_mm;
-    ModulusMaxima s_r_mm;
+    ModulusMaxima s_l_mm = ModulusMaxima(0,0,tmp_wdc);;
+    ModulusMaxima s_r_mm = ModulusMaxima(0,0,tmp_wdc);;
     double s_ampl = 0;
 
     double mm_amplitude = 0.0;

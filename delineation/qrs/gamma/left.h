@@ -222,7 +222,7 @@ std::tuple<bool, int, std::vector<Point>> left_qrs_morphology(const ECGLead& ecg
                         {
                             is_zcs_valid = false;
                         }
-                        if (std::abs(zcs[zc_id - 1].g_l_mm.value) < mm_ampl)
+                        if (std::abs(zcs[zc_id - 1].g_l_mm->value) < mm_ampl)
                         {
                             is_zcs_valid = false;
                         }

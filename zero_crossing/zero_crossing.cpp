@@ -19,8 +19,8 @@ void ZeroCrossing::zc_proc()
                                    [](const ModulusMaxima& first, const ModulusMaxima& second) {
                                        return std::abs(first.value) < std::abs(second.value);
                                    });
-        g_l_mm = std::make_shared<ModulusMaxima>(*it);
-        l_l_mm = std::make_shared<ModulusMaxima>(l_mms[0]);
+        g_l_mm = ModulusMaxima(*it);
+        l_l_mm = ModulusMaxima(l_mms[0]);
     }
     if (r_mms.size() > 0)
     {
@@ -28,14 +28,14 @@ void ZeroCrossing::zc_proc()
                                    [](const ModulusMaxima& first, const ModulusMaxima& second) {
                                        return std::abs(first.value) < std::abs(second.value);
                                    });
-        g_r_mm = std::make_shared<ModulusMaxima>(*it);
-        l_r_mm = std::make_shared<ModulusMaxima>(r_mms[0]);
+        g_r_mm = ModulusMaxima(*it);
+        l_r_mm = ModulusMaxima(r_mms[0]);
     }
 
-    if (g_l_mm && g_r_mm)
+    if (g_l_mm.id > 0 && g_r_mm.id > 0)
     {
-        g_ampl = std::abs(g_l_mm->value) + std::abs(g_r_mm->value);
-        if ((g_l_mm->value < 0) && (g_r_mm->value > 0))
+        g_ampl = std::abs(g_l_mm.value) + std::abs(g_r_mm.value);
+        if ((g_l_mm.value < 0) && (g_r_mm.value > 0))
         {
             extremum_sign = ExtremumSign::POSITIVE;
         }
@@ -44,9 +44,9 @@ void ZeroCrossing::zc_proc()
             extremum_sign = ExtremumSign::NEGATIVE;
         }
     }
-    if (l_l_mm && l_r_mm)
+    if (l_l_mm.id > 0 && l_r_mm.id > 0)
     {
-        l_ampl = std::abs(l_l_mm->value) + std::abs(l_r_mm->value);
+        l_ampl = std::abs(l_l_mm.value) + std::abs(l_r_mm.value);
     }
 
 //    g_l_mm = l_mms[np.argmax([abs(mm.value) for mm in self.l_mms])] if len(self.l_mms) > 0 else None

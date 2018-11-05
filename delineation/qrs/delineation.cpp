@@ -34,7 +34,7 @@ std::pair<std::vector<WaveDelineation>, std::vector<Morphology>> get_qrs_dels(
             {
                 delineations[del_id].onset_index = delineations[del_id - 1].offset_index + 1;
                 morphologies[del_id].points[0].index = delineations[del_id - 1].offset_index + 1;
-                morphologies[del_id].points[0].value = ecg_lead.filter[delineations[del_id - 1].offset_index + 1];
+                morphologies[del_id].points[0].value = ecg_lead.filter_[delineations[del_id - 1].offset_index + 1];
             }
         }
     }
