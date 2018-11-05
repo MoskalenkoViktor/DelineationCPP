@@ -68,7 +68,8 @@ void define_qrs_onset_index(const ECGLead& ecg_lead,
         {
             size_t onset_index_candidate_1 = next_mm.index;
             size_t onset_index_candidate_2 = find_left_thc_index(
-                wdc, first_mm.index, static_cast<int>(static_cast<int>(zc.g_l_mm->index) - window), threshold);
+                wdc, first_mm.index, static_cast<size_t>(static_cast<int>(zc.g_l_mm.index) - window), threshold);
+            find_left_thc_index(wdc, first_mm.index, zc.g_l_mm.index - window, threshold);
             size_t onset_index = std::max(onset_index_candidate_1, onset_index_candidate_2);
             delineation->onset_index = onset_index;
             return;
@@ -79,9 +80,9 @@ void define_qrs_onset_index(const ECGLead& ecg_lead,
     size_t left_zc_index = find_left_thc_index(wdc, first_mm.index, static_cast<int>(next_mm.index), 0.0);
 
     // Compromise
-    size_t compromise_window = static_cast<int>(BETA_ONSET_COMPROMISE_WINDOW * rate);
+    size_t compromise_window = static_cast<size_t>(BETA_ONSET_COMPROMISE_WINDOW * rate);
     double compromise_mm_lim = BETA_ONSET_COMPROMISE_MM_LIM *
-        std::min(std::abs(zc.g_l_mm->value), std::abs(zc.g_r_mm->value));
+        std::min(std::abs(zc.g_l_mm.value), std::abs(zc.g_r_mm.value));
 
     size_t onset_index = 0;
     if (((right_zc_index - left_zc_index) > compromise_window) &&
@@ -105,9 +106,9 @@ std::vector<ModulusMaxima> get_qrs_onset_mms(const ECGLead& ecg_lead, const Zero
     size_t window = static_cast<size_t>(BETA_ONSET_WINDOW * rate);
     const std::vector<ModulusMaxima>& mms = ecg_lead.mms[wdc_scale_id];
 
-    std::vector<ModulusMaxima> onset_mms = { mms[qrs_zc.g_l_mm->id] };
-    size_t mm_id = qrs_zc.g_l_mm->id - 1;
-    while ((mm_id > 0) && (qrs_zc.g_l_mm->index - mms[mm_id].index <= window))
+    std::vector<ModulusMaxima> onset_mms = { mms[qrs_zc.g_l_mm.id] };
+    size_t mm_id = qrs_zc.g_l_mm.id - 1;
+    while ((mm_id > 0) && (qrs_zc.g_l_mm.index - mms[mm_id].index <= window))
     {
         onset_mms.push_back(mms[mm_id]);
         --mm_id;
@@ -123,10 +124,10 @@ int get_qrs_onset_mm_id(const ECGLead& ecg_lead, const ZeroCrossing& qrs_zc,
     double rate = ecg_lead.rate;
     size_t window = static_cast<size_t>(BETA_ONSET_WINDOW * rate);
 
-    double mm_val = std::max(std::abs(qrs_zc.g_l_mm->value), std::abs(qrs_zc.g_r_mm->value)) *
+    double mm_val = std::max(std::abs(qrs_zc.g_l_mm.value), std::abs(qrs_zc.g_r_mm.value)) *
         BETA_ONSET_MM_LOW_LIM;
 
-    size_t start_index = qrs_zc.g_l_mm->index;
+    size_t start_index = qrs_zc.g_l_mm.index;
     int qrs_onset_mm_id = onset_mm_id;
     if (onset_mm_id + 1 < mms.size())
     {
@@ -157,7 +158,7 @@ int get_qrs_onset_mm_id(const ECGLead& ecg_lead, const ZeroCrossing& qrs_zc,
 int get_complex_mm_id(const ECGLead& ecg_lead, const ZeroCrossing& qrs_zc,
     const std::vector<ModulusMaxima>& mms, int onset_mm_id)
 {
-    double mm_val = std::max(std::abs(qrs_zc.g_l_mm->value), std::abs(qrs_zc.g_r_mm->value)) *
+    double mm_val = std::max(std::abs(qrs_zc.g_l_mm.value), std::abs(qrs_zc.g_r_mm.value)) *
         BETA_ONSET_MM_LOW_LIM;
 
     if (onset_mm_id != mms.size() - 1)
@@ -167,8 +168,8 @@ int get_complex_mm_id(const ECGLead& ecg_lead, const ZeroCrossing& qrs_zc,
         for (int mm_id = begin_mm_id; mm_id < mms.size(); ++mm_id)
         {
             if ((std::abs(mms[mm_id].value) > BETA_COMPLEX_ZC_AMPL * std::abs(qrs_zc.g_ampl)) ||
-                (std::abs(mms[mm_id].value) > BETA_COMPLEX_MM_VAL * abs(qrs_zc.g_l_mm->value)) ||
-                (std::abs(mms[mm_id].value) > BETA_COMPLEX_MM_VAL * abs(qrs_zc.g_r_mm->value)))
+                (std::abs(mms[mm_id].value) > BETA_COMPLEX_MM_VAL * abs(qrs_zc.g_l_mm.value)) ||
+                (std::abs(mms[mm_id].value) > BETA_COMPLEX_MM_VAL * abs(qrs_zc.g_r_mm.value)))
             {
                 candidate_mm_id = mm_id;
                 break;
