@@ -3,6 +3,7 @@
 #include "../routines.h"
 #include "../../../params/params.h"
 #include "points.h"
+#include "data.h"
 
 Morphology get_p_morph(const ECGLead& ecg_lead, size_t del_id, const WaveDelineation& delineation) {
 
