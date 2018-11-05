@@ -125,8 +125,8 @@ int get_complex_offset_mm_id(const ECGLead& ecg_lead, const ZeroCrossing& qrs_zc
         for (int mm_id = begin_mm_id; mm_id < mms.size(); ++mm_id)
         {
             if ((std::abs(mms[mm_id].value) > BETA_COMPLEX_ZC_AMPL * std::abs(qrs_zc.g_ampl)) ||
-                (std::abs(mms[mm_id].value) > BETA_COMPLEX_MM_VAL * abs(qrs_zc.g_l_mm->value)) ||
-                (std::abs(mms[mm_id].value) > BETA_COMPLEX_MM_VAL * abs(qrs_zc.g_r_mm->value)))
+                (std::abs(mms[mm_id].value) > BETA_COMPLEX_MM_VAL * abs(qrs_zc.g_l_mm.value)) ||
+                (std::abs(mms[mm_id].value) > BETA_COMPLEX_MM_VAL * abs(qrs_zc.g_r_mm.value)))
             {
                 candidate_mm_id = mm_id;
                 break;
