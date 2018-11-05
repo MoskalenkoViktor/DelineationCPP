@@ -31,8 +31,8 @@ WaveDelineation get_p_del(const ECGLead& ecg_lead, size_t qrs_id) {
         return delineation;
     }
 
-    if (((zcs[-1].s_r_mm.index - zcs[-1].index) > int(float(ALPHA_RIGHT_MM_DIST) * rate)) ||
-        (abs(zcs[-1].s_r_mm.value) / abs(zcs[-1].s_l_mm.value) > float(ALPHA_OFFSET_MM_SHARP))) {
+    if (((zcs[-1].s_r_mm->index - zcs[-1].index) > int(float(ALPHA_RIGHT_MM_DIST) * rate)) ||
+        (abs(zcs[-1].s_r_mm->value) / abs(zcs[-1].s_l_mm->value) > float(ALPHA_OFFSET_MM_SHARP))) {
         zcs.pop_back();
     }
 
@@ -40,8 +40,8 @@ WaveDelineation get_p_del(const ECGLead& ecg_lead, size_t qrs_id) {
         return delineation;
     }
 
-    if (((zcs[0].index - zcs[0].s_l_mm.index) > int(float(ALPHA_LEFT_MM_DIST) * rate)) || (
-            abs(zcs[0].s_l_mm.value) / abs(zcs[0].s_r_mm.value) > float(ALPHA_ONSET_MM_SHARP))) {
+    if (((zcs[0].index - zcs[0].s_l_mm->index) > int(float(ALPHA_LEFT_MM_DIST) * rate)) || (
+            abs(zcs[0].s_l_mm->value) / abs(zcs[0].s_r_mm->value) > float(ALPHA_ONSET_MM_SHARP))) {
         zcs.pop_back();
     }
 

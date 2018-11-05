@@ -40,23 +40,23 @@ void define_qrs_offset_index(const ECGLead& ecg_lead,
     size_t offset_index = 0;
     if (!next_mm.correctness)
     {
-        if (next_mm.index < zc.g_r_mm.index + window)
+        if (next_mm.index < zc.g_r_mm->index + window)
         {
             size_t offset_index_candidate_1 = next_mm.index;
             size_t offset_index_candidate_2 = 
-                find_right_thc_index(wdc, first_mm.index, 
-                    static_cast<int>(zc.g_r_mm.index) + static_cast<int>(window), threshold);
+                find_right_thc_index(wdc, first_mm.index,
+                    static_cast<int>(zc.g_r_mm->index) + static_cast<int>(window), threshold);
             offset_index = std::min(offset_index_candidate_1, offset_index_candidate_2);
         }
         else
         {
-            offset_index = find_right_thc_index(wdc, first_mm.index, 
-                static_cast<int>(zc.g_r_mm.index) + static_cast<int>(window), threshold);
+            offset_index = find_right_thc_index(wdc, first_mm.index,
+                static_cast<int>(zc.g_r_mm->index) + static_cast<int>(window), threshold);
         }
     }
     else
     {
-        offset_index = find_right_thc_index(wdc, first_mm.index, 
+        offset_index = find_right_thc_index(wdc, first_mm.index,
             static_cast<int>(next_mm.index), threshold);
     }
 
@@ -67,7 +67,7 @@ void define_qrs_offset_index(const ECGLead& ecg_lead,
 int get_qrs_offset_mm_id(const ECGLead& ecg_lead, const ZeroCrossing& qrs_zc,
     const std::vector<ModulusMaxima>& mms, int offset_mm_id)
 {
-    double threshold = std::max(std::abs(qrs_zc.g_l_mm->value), std::abs(qrs_zc.g_r_mm.value)) *
+    double threshold = std::max(std::abs(qrs_zc.g_l_mm->value), std::abs(qrs_zc.g_r_mm->value)) *
         BETA_OFFSET_MM_LOW_LIM;
 
     int qrs_offset_mm_id = offset_mm_id;
@@ -100,9 +100,10 @@ std::vector<ModulusMaxima> get_qrs_offset_mms(const ECGLead& ecg_lead, const Zer
     size_t window = static_cast<size_t>(BETA_OFFSET_WINDOW * rate);
     const std::vector<ModulusMaxima>& mms = ecg_lead.mms[wdc_scale_id];
 
-    int mm_id = qrs_zc.g_r_mm.id + 1;
-    std::vector<ModulusMaxima> offset_mms = { qrs_zc.g_r_mm };
-    while ((mm_id < mms.size()) && (mms[mm_id].index - qrs_zc.g_r_mm.index <= window))
+    int mm_id = qrs_zc.g_r_mm->id + 1;
+//    std::vector<ModulusMaxima> offset_mms = { qrs_zc.g_r_mm };
+    std::vector<ModulusMaxima> offset_mms;
+    while ((mm_id < mms.size()) && (mms[mm_id].index - qrs_zc.g_r_mm->index <= window))
     {
         offset_mms.push_back(mms[mm_id]);
         ++mm_id;
@@ -115,7 +116,7 @@ std::vector<ModulusMaxima> get_qrs_offset_mms(const ECGLead& ecg_lead, const Zer
 int get_complex_offset_mm_id(const ECGLead& ecg_lead, const ZeroCrossing& qrs_zc,
     const std::vector<ModulusMaxima>& mms, int offset_mm_id)
 {
-    double threshold = std::max(std::abs(qrs_zc.g_l_mm->value), std::abs(qrs_zc.g_r_mm.value)) *
+    double threshold = std::max(std::abs(qrs_zc.g_l_mm->value), std::abs(qrs_zc.g_r_mm->value)) *
         BETA_OFFSET_MM_LOW_LIM;
 
     if (offset_mm_id != mms.size() - 1)
@@ -126,7 +127,7 @@ int get_complex_offset_mm_id(const ECGLead& ecg_lead, const ZeroCrossing& qrs_zc
         {
             if ((std::abs(mms[mm_id].value) > BETA_COMPLEX_ZC_AMPL * std::abs(qrs_zc.g_ampl)) ||
                 (std::abs(mms[mm_id].value) > BETA_COMPLEX_MM_VAL * abs(qrs_zc.g_l_mm->value)) ||
-                (std::abs(mms[mm_id].value) > BETA_COMPLEX_MM_VAL * abs(qrs_zc.g_r_mm.value)))
+                (std::abs(mms[mm_id].value) > BETA_COMPLEX_MM_VAL * abs(qrs_zc.g_r_mm->value)))
             {
                 candidate_mm_id = mm_id;
                 break;

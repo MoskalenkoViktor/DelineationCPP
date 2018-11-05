@@ -64,7 +64,7 @@ void offset_processing(int last_zc_id, const ECGLead& ecg_lead, WaveDelineation*
                     qrs_offset_index = zcs[offset_zc_id].index;
                     is_offset_found = true;
                 }
-                if (std::abs(zcs[offset_zc_id].g_l_mm.value) > mm_ampl)
+                if (std::abs(zcs[offset_zc_id].g_l_mm->value) > mm_ampl)
                 {
                     qrs_offset_index = zcs[offset_zc_id].index;
                     is_offset_found = true;
@@ -100,7 +100,7 @@ void offset_processing(int last_zc_id, const ECGLead& ecg_lead, WaveDelineation*
             {
                 if (mms_ids_incorrect.size() > 0)
                 {
-                    if (std::abs(zcs[last_zc_id].g_r_mm.value) > mm_ampl)
+                    if (std::abs(zcs[last_zc_id].g_r_mm->value) > mm_ampl)
                     {
                         int mm_id_incorrect = mms_ids_incorrect.back();
                         size_t qrs_offset_index = mms[mm_id_incorrect].index;
@@ -128,7 +128,7 @@ void offset_processing(int last_zc_id, const ECGLead& ecg_lead, WaveDelineation*
         if (!is_offset_found)
         {
             size_t scale_id_bord = GAMMA_BORD_SCALE;
-            ModulusMaxima mm_bord = mm_bord = get_right_mm(ecg_lead.mms[scale_id_bord],
+            ModulusMaxima mm_bord = get_right_mm(ecg_lead.mms[scale_id_bord],
                 ecg_lead.ids_mms[scale_id_bord], last_zc.index);
             qrs_offset_index = mm_bord.index;
             is_offset_found = true;
