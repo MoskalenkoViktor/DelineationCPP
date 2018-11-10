@@ -65,54 +65,70 @@ void ZeroCrossing::special(const std::vector<double>& wdc, int left_index, int r
         if (mm.index > left_index)
             l_mms.push_back(mm);
     }
-
+// TODO Check correctness:
     if (l_mms.size() > 0) {
         auto it = std::max_element(l_mms.begin(), l_mms.end(),
                                    [](const ModulusMaxima &first, const ModulusMaxima &second) {
                                        return std::abs(first.value) < std::abs(second.value);
                                    });
         this->s_l_mm = std::make_shared<ModulusMaxima>(*it);
+    } else {
+        this->s_l_mm = nullptr;
     }
-    for
-    mm
-    in
-    l_mms])]
-    else:
-    self.s_l_mm = None
-    if self.s_l_mm
-    is
-    None:
-    if self.index == left_index:
-    self.s_l_mm = ModulusMaxima(left_index, self.l_mms[0].id, wdc)
-    else:
-    left_mm_index = left_index + np.argmax(np.abs(wdc[left_index:
-    self.index]))
-    self.s_l_mm = ModulusMaxima(left_mm_index, self.l_mms[0].id, wdc)
 
-    r_mms = [mm
-    for
-    mm
-    in
-    self.r_mms
-    if mm.index < right_index]
-    if len(r_mms) > 0:
-    self.s_r_mm = r_mms[np.argmax([abs(mm.value)
-    for
-    mm
-    in
-    r_mms])]
-    else:
-    self.s_r_mm = None
-    if self.s_r_mm
-    is
-    None:
-    if self.index == right_index:
-    self.s_r_mm = ModulusMaxima(right_index, self.r_mms[0].id, wdc)
-    else:
-    right_mm_index = self.index + np.argmax(np.abs(wdc[self.index:right_index]))
-    self.s_r_mm = ModulusMaxima(right_mm_index, self.r_mms[0].id, wdc)
+    if (this->s_l_mm == nullptr) {
+        if (this->index == left_index)
+            // TODO Check correctness:
+            this->s_l_mm = std::shared_ptr<ModulusMaxima>(reinterpret_cast<nullptr_t>(left_index), this->l_mms[0].id, wdc);
+        else {
+            std::vector<int> wdc_abs_tmp;
+            for (int i = left_index; left_index < this->.index; ++left_index)
+                wdc_abs_tmp[i] = static_cast<int>(std::fabs(wdc[i]));
+            auto wdc_max_tmp = *std::max_element (wdc_abs_tmp.begin(), wdc_abs_tmp.end());
+            int left_mm_index = left_index + wdc_max_tmp;
+            // TODO Check correctness:
+            this->s_l_mm = std::shared_ptr<ModulusMaxima>(reinterpret_cast<nullptr_t>(left_mm_index), this->l_mms[0].id, wdc);
+        }
+    }
 
-    self.s_ampl = abs(self.s_l_mm.value) + abs(self.s_r_mm.value)
+    // Для r_mms:
+    auto it_r = std::max_element(r_mms.begin(), r_mms.end(),
+                               [](const ModulusMaxima &first, const ModulusMaxima &second) {
+                                   return std::abs(first.value) < std::abs(second.value);
+                               });
+    this->s_r_mm = std::make_shared<ModulusMaxima>(*it_r);
+
+    for (auto &mm : this->r_mms) {
+        if (mm.index > right_index)
+            r_mms.push_back(mm);
+    }
+// TODO Check correctness:
+    if (r_mms.size() > 0) {
+        auto it = std::max_element(r_mms.begin(), r_mms.end(),
+                                   [](const ModulusMaxima &first, const ModulusMaxima &second) {
+                                       return std::abs(first.value) < std::abs(second.value);
+                                   });
+        this->s_r_mm = std::make_shared<ModulusMaxima>(*it);
+    } else {
+        this->s_r_mm = nullptr;
+    }
+
+    if (this->s_r_mm == nullptr) {
+        if (this->index == right_index)
+            // TODO Check correctness:
+            this->s_r_mm = std::shared_ptr<ModulusMaxima>(reinterpret_cast<nullptr_t>(right_index), this->r_mms[0].id, wdc);
+        else {
+            std::vector<int> wdc_abs_tmp;
+            for (int i = right_index; right_index < this->.index; ++right_index)
+                wdc_abs_tmp[i] = static_cast<int>(std::fabs(wdc[i]));
+            auto wdc_max_tmp = *std::max_element (wdc_abs_tmp.begin(), wdc_abs_tmp.end());
+            int right_mm_index = right_index + wdc_max_tmp;
+            // TODO Check correctness:
+            this->s_l_mm = std::shared_ptr<ModulusMaxima>(reinterpret_cast<nullptr_t>(right_mm_index), this->r_mms[0].id, wdc);
+        }
+    }
+
+    this->s_ampl = abs(this->s_l_mm->value) + abs(this->s_r_mm->value);
 }
 
 std::vector<ZeroCrossing> get_zcs(const std::vector<double>& wdc,
