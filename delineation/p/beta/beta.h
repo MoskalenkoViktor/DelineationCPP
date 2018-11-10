@@ -3,6 +3,7 @@
 #include "../../../params/params.h"
 #include "../zcs.h"
 #include "../../peaks_zcs_ids.h"
+#include "peak.h"
 
 WaveDelineation get_p_del(const ECGLead& ecg_lead, size_t qrs_id) {
     WaveDelineation delineation;
@@ -63,15 +64,13 @@ WaveDelineation get_p_del(const ECGLead& ecg_lead, size_t qrs_id) {
 
     auto peak_zcs_ids = PeakZCsIds(peak_zc_id, peak_zc_id, peak_zc_id);
 
-    check_flexure_p(peak_zcs_ids, ecg_lead, qrs_id, zcs, delineation);
-
-    check_left_biphasic_p(peak_zcs_ids, ecg_lead, zcs, delineation);
-
-    define_p_onset_index(ecg_lead, delineation, zcs, peak_zcs_ids.left_zc_id, begin_index);
-    define_p_offset_index(ecg_lead, delineation, zcs, peak_zcs_ids.right_zc_id, end_index);
-
-    check_for_atrial_fibrillation(delineation, zcs);
-
-
+//    check_flexure_p(peak_zcs_ids, ecg_lead, qrs_id, zcs, delineation);
+//
+//    check_left_biphasic_p(peak_zcs_ids, ecg_lead, zcs, delineation);
+//
+//    define_p_onset_index(ecg_lead, delineation, zcs, peak_zcs_ids.left_zc_id, begin_index);
+//    define_p_offset_index(ecg_lead, delineation, zcs, peak_zcs_ids.right_zc_id, end_index);
+//
+//    check_for_atrial_fibrillation(delineation, zcs);
     return delineation;
 }

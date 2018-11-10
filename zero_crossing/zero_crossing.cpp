@@ -77,17 +77,18 @@ void ZeroCrossing::special(const std::vector<double>& wdc, int left_index, int r
     }
 
     if (this->s_l_mm == nullptr) {
-        if (this->index == left_index)
+        if (this->index == left_index) {
             // TODO Check correctness:
-            this->s_l_mm = std::shared_ptr<ModulusMaxima>(reinterpret_cast<nullptr_t>(left_index), this->l_mms[0].id, wdc);
+            this->s_l_mm = std::make_shared<ModulusMaxima>(ModulusMaxima(static_cast<size_t>(left_index), this->l_mms[0].id, wdc));
+        }
         else {
             std::vector<int> wdc_abs_tmp;
-            for (int i = left_index; left_index < this->.index; ++left_index)
+            for (int i = left_index; left_index < this->index; ++left_index)
                 wdc_abs_tmp[i] = static_cast<int>(std::fabs(wdc[i]));
             auto wdc_max_tmp = *std::max_element (wdc_abs_tmp.begin(), wdc_abs_tmp.end());
             int left_mm_index = left_index + wdc_max_tmp;
             // TODO Check correctness:
-            this->s_l_mm = std::shared_ptr<ModulusMaxima>(reinterpret_cast<nullptr_t>(left_mm_index), this->l_mms[0].id, wdc);
+            this->s_l_mm = std::make_shared<ModulusMaxima>(ModulusMaxima(static_cast<size_t>(left_mm_index), this->l_mms[0].id, wdc));
         }
     }
 
@@ -116,15 +117,15 @@ void ZeroCrossing::special(const std::vector<double>& wdc, int left_index, int r
     if (this->s_r_mm == nullptr) {
         if (this->index == right_index)
             // TODO Check correctness:
-            this->s_r_mm = std::shared_ptr<ModulusMaxima>(reinterpret_cast<nullptr_t>(right_index), this->r_mms[0].id, wdc);
+            this->s_r_mm = std::make_shared<ModulusMaxima>(ModulusMaxima(right_index, this->r_mms[0].id, wdc));
         else {
             std::vector<int> wdc_abs_tmp;
-            for (int i = right_index; right_index < this->.index; ++right_index)
+            for (int i = right_index; right_index < this->index; ++right_index)
                 wdc_abs_tmp[i] = static_cast<int>(std::fabs(wdc[i]));
             auto wdc_max_tmp = *std::max_element (wdc_abs_tmp.begin(), wdc_abs_tmp.end());
             int right_mm_index = right_index + wdc_max_tmp;
             // TODO Check correctness:
-            this->s_l_mm = std::shared_ptr<ModulusMaxima>(reinterpret_cast<nullptr_t>(right_mm_index), this->r_mms[0].id, wdc);
+            this->s_l_mm = std::make_shared<ModulusMaxima>(ModulusMaxima(right_mm_index, this->r_mms[0].id, wdc));
         }
     }
 
