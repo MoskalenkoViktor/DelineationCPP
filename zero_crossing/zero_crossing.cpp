@@ -183,8 +183,8 @@ std::vector<ZeroCrossing> get_zcs(const std::vector<double>& wdc,
 }
 
 
-std::vector<ZeroCrossing> get_zcs_in_window(const std::vector<double>& wdc, 
-    const std::vector<ZeroCrossing>& zcs, const std::vector<int>& ids_zcs, 
+std::vector<ZeroCrossing> get_zcs_in_window(const std::vector<double>& wdc,
+    const std::vector<ZeroCrossing>& zcs, const std::vector<int>& ids_zcs,
     size_t begin_index, size_t end_index)
 {
     int begin_index_for_zc = static_cast<int>(begin_index) + 1;
@@ -205,7 +205,7 @@ std::vector<ZeroCrossing> get_zcs_in_window(const std::vector<double>& wdc,
     }
 
     std::vector<ZeroCrossing> target_zcs(zcs.begin() + begin_id, zcs.begin() + end_id + 1);
-    
+
     if (target_zcs.size() > 0)
     {
 
@@ -240,7 +240,7 @@ std::vector<ZeroCrossing> get_zcs_in_window(const std::vector<double>& wdc,
         if (right_zc.r_mms.size() > 0)
         {
             size_t num_passed = 0;
-            while ((num_passed < right_zc.r_mms.size()) && 
+            while ((num_passed < right_zc.r_mms.size()) &&
                 (right_zc.r_mms[num_passed].index <= end_index_for_mm))
             {
                 ++num_passed;
@@ -268,7 +268,7 @@ std::vector<ZeroCrossing> get_zcs_in_window(const std::vector<double>& wdc,
 }
 
 
-int get_closest_zc_id(const std::vector<ZeroCrossing>& zcs, 
+int get_closest_zc_id(const std::vector<ZeroCrossing>& zcs,
     const std::vector<int>& ids_zcs, size_t index)
 {
     int id = ids_zcs[index];
